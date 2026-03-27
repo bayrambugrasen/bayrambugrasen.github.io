@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematic Stories - Videographer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* SMOOTH SCROLL EKLENTİSİ */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Base Styles */
+        :root {
+            --bg-color: #000000;
+            --text-color: #FFFFFF;
+            --sub-text-color: #E0E0E0;
+            --card-bg-color: #1A1A1A;
+            --accent-color: #00FFFF;
+            --inter-font: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--inter-font);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            margin: 0 0 0.25rem 0;
+            font-weight: 400;
+            text-transform: none;
+            line-height: 1.4;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--sub-text-color);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        p.hero-subtext {
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            color: #C0C0C0;
+        }
+
+        /* Utility Sınıfları */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Buttons Container EKLENTİSİ */
+        .hero-buttons {
+            display: flex;
+            gap: 20px; /* Butonlar arası boşluk */
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Mobilde alt alta inebilmeleri için */
+        }
+
+        /* Button Primary (Transparan) */
+        .btn-primary {
+            display: inline-block;
+            background-color: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 14px 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        /* Button Secondary (Dolu) EKLENTİSİ */
+        .btn-secondary {
+            display: inline-block;
+            background-color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            color: var(--bg-color);
+            padding: 14px 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+        }
+
+        /* Hero Section (Tam Ekran Arka Plan) */
+        .hero-section {
+            width: 100%;
+            height: 100vh; /* Ekranın tam %100'ünü kaplar */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            /* Arka plan görseli ve karartma efekti */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url('sitefoto.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* Metinlerin kenarlara yapışmasını engellemek için mobilde iç boşluk */
+            padding: 0 20px; 
+        }
+
+        .hero {
+            width: 100%;
+            text-align: center;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            max-width: 900px;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 80px 0;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Portfolio Card */
+        .card {
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* Play button overlay (for placeholders) */
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #FFFFFF;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #FFFFFF;
+            font-size: 0.875rem;
+        }
+
+        .video-time-bar {
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.3);
+            flex-grow: 1;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+
+        .platform-icons {
+            display: flex;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content p {
+            font-size: 0.875rem;
+            color: #C0C0C0;
+            margin-bottom: 0;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer Section */
+        footer {
+            padding: 80px 0 40px 0;
+            text-align: left;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 60px;
+        }
+
+        .contact-info {
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 25px;
+            font-size: 1.5rem;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.75rem; }
+            h2 { font-size: 1.875rem; }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .footer-top {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .social-icons {
+                margin-top: 10px;
+            }
+            /* Mobilde butonların aralığını biraz kısmak iyi olabilir */
+            .hero-buttons {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="hero-section">
+            <div class="container hero">
+                <h1>BAYRAM BUĞRA ŞEN</h1>
+                <h2></h2>
+                <p class="hero-subtext"></p>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn-primary">PORTFOLYO</a>
+                    <a href="#iletisim" class="btn-secondary">İLETİŞİM</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="container portfolio">
+            <h2>PORTFOLYO</h2>
+            <div class="portfolio-grid">
+                
+                <div class="card">
+                    <div class="video-thumbnail">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/yZmIYBSklAw" title="İrem Derici - 9 Ekim Harbiye Açık Hava Konseri" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                    </div>
+                    <div class="card-content">
+                        <h3>İREM DERİCİ HARBİYE KONSER FİLMİ</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="video-thumbnail">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/6Soki72Sd4s" title="Brisalılar harekete yelken açtı!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                    </div>
+                    <div class="card-content">
+                        <h3>BRİSA YELKEN TAKIMI REKLAM FİLMİ</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="video-thumbnail">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/RjEDGnEB7Vo" title="Emre Boz | Setlerden Balta Girmemiş Ormanlara" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                    </div>
+                    <div class="card-content">
+                        <h3>KADRAJ KAFASI YOUTUBE KANALI</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="video-thumbnail">
+                        <iframe src="https://player.vimeo.com/video/1014412963" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                    </div>
+                    <div class="card-content">
+                        <h3>PORSCHE TAYCAN 2024 LANSMAN FİLMİ</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="container about">
+            <h2>Hakkımda</h2>
+            <p>Merhaba. Ben Buğra. İstanbul Kültür Üniversitesi Radyo, Televizyon ve Sinema Bölümü 3. sınıf öğrencisiyim. Çeşitli reklam ve belgesel filmlerinde kamera ve prodüksiyon asistanlığı yaptım. Aktif olarak bu alanlarda kendimi geliştiriyorum.
+</p>
+           
+        </section>
+    </main>
+
+    <footer id="iletisim">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-left">
+                    <h2>İLETİŞİM</h2>
+                    <p class="contact-info">
+                        bayrambugrasen8@gmail.com
+                    </p>
+                    <p class="contact-info">
+                        +90 543 203 85 95
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
