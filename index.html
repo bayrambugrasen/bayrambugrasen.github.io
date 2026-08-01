@@ -62,7 +62,7 @@
         h1 {
             font-size: 4rem;
             line-height: 1.1;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem; /* Subtitle kalktığı için boşluğu biraz artırdık */
             background: linear-gradient(to right, #fff, #a1a1aa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -71,7 +71,7 @@
         h2 {
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            text-align: center;
+            text-align: left; /* Sola hizalı */
             position: relative;
         }
 
@@ -80,8 +80,7 @@
             content: '';
             position: absolute;
             bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0; /* Çizgiyi de sola hizaladık */
             width: 60px;
             height: 4px;
             background-color: var(--accent-color);
@@ -108,22 +107,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Resim karanlıklaştırıldı, metin daha iyi okunsun diye radial gradient eklendi */
             background-image: radial-gradient(circle, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.95) 100%), url('sitefoto.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Parallax efekti */
+            background-attachment: fixed;
             text-align: center;
             animation: fadeIn 1.5s ease-out;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--accent-color);
-            margin-bottom: 2.5rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 400;
         }
 
         .hero-buttons {
@@ -144,7 +133,7 @@
             letter-spacing: 1px;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Yaylanma efekti */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-primary {
@@ -214,12 +203,11 @@
         /* ----- HAKKIMDA SECTION ----- */
         .about {
             padding: 100px 0;
-            text-align: center;
+            text-align: left; /* Sola hizalı */
         }
 
         .about p {
-            max-width: 800px;
-            margin: 40px auto 0;
+            margin: 40px 0 0; /* Auto ortalamayı kaldırdık */
             font-size: 1.2rem;
             line-height: 1.8;
         }
@@ -234,8 +222,8 @@
         .footer-content {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
+            align-items: flex-start; /* İçeriği sola hizaladık */
+            text-align: left;
             gap: 20px;
         }
 
@@ -252,7 +240,7 @@
             transition: color 0.3s ease;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* İkon ve metni sola hizaladık */
             gap: 10px;
         }
 
@@ -292,7 +280,7 @@
             margin-top: 60px;
             font-size: 0.9rem;
             color: #555;
-            text-align: center;
+            text-align: left; /* Sola hizalı */
         }
 
         /* ----- ANİMASYONLAR ----- */
@@ -334,7 +322,6 @@
         <section class="hero-section">
             <div class="container hero">
                 <h1>BAYRAM BUĞRA ŞEN</h1>
-                <p class="hero-subtitle">Prodüksiyon & Kamera Asistanı</p>
                 <div class="hero-buttons">
                     <a href="#portfolio" class="btn btn-primary">PORTFOLYO</a>
                     <a href="#iletisim" class="btn btn-secondary">İLETİŞİM</a>
@@ -392,12 +379,9 @@
                     <a href="tel:+905432038595"><i class="fas fa-phone"></i> +90 543 203 85 95</a>
                 </div>
 
-                <!-- Sosyal Medya İkonları (Linkleri "#" yerine kendi linklerinle değiştirebilirsin) -->
+                <!-- Sadece Instagram İkonu -->
                 <div class="social-icons">
-                    <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" target="_blank" title="Vimeo"><i class="fab fa-vimeo-v"></i></a>
-                    <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/bayrambugrasen/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             
