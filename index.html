@@ -16,20 +16,27 @@
     <style>
         html { scroll-behavior: smooth; }
 
-        /* ---------- Sinematik Renk Paleti ---------- */
+        /* ---------- Sinematik & Poster Renk Paleti ---------- */
         :root {
-            --bg-color: #0a0908;
+            /* Koyu renkler klaket ve kartlar için korundu */
             --bg-raised: #131110;
-            --card-bg: #15120f;
+            --card-bg: #0a0908;
             --text-main: #f4efe6;
             --text-muted: #a39a8c;
             --accent-color: #e7a93d;
             --accent-bright: #f6cd77;
-            --accent-glow: rgba(231, 169, 61, 0.35);
-            --border-color: rgba(244, 239, 230, 0.08);
             --font-display: 'Bebas Neue', 'Inter', sans-serif;
             --font-main: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Klaket Şeritleri */
+            --stripe-grad: repeating-linear-gradient(
+                115deg,
+                #050403 0%, #050403 15%,
+                #181614 15%, #181614 30%,
+                #e7a93d 30%, #e7a93d 33%,
+                #8a734d 33%, #8a734d 45%
+            );
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,8 +44,8 @@
         html, body { height: 100%; }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            /* Yazı rengi sarı arka planda okunması için koyulaştırıldı */
+            color: #111111;
             font-family: var(--font-main);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
@@ -47,35 +54,26 @@
             position: relative;
         }
 
-        /* İnce film grenli doku */
+        /* İnce film grenli doku - Sarı arka planda harika bir vintage etki yaratır */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 999;
-            opacity: 0.05;
+            opacity: 0.04;
             mix-blend-mode: overlay;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
         a { text-decoration: none; color: inherit; }
 
-        /* ---------- Sabit Arka Plan Fotoğrafı ---------- */
-        .bg-photo {
-            position: fixed;
-            inset: -3%;
-            background-image: url('sitefoto.jpg');
-            background-size: cover;
-            background-position: center 30%;
-            filter: blur(4px) saturate(1.05) brightness(0.55);
-            z-index: -2;
-        }
-
+        /* ---------- Hardal Sarısı Arka Plan ---------- */
         .bg-overlay {
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle at 20% 30%, rgba(10,9,8,0.55) 0%, rgba(10,9,8,0.93) 70%);
+            /* Merkeze doğru hafif aydınlanan sinematik hardal sarısı degrade */
+            background: radial-gradient(circle at 50% 30%, #e8ba31 0%, #d49c1b 50%, #af7c11 100%);
             z-index: -1;
         }
 
@@ -88,6 +86,7 @@
             text-align: left;
             position: relative;
             margin-bottom: 2.6rem;
+            color: #111;
         }
 
         h2::after {
@@ -96,11 +95,9 @@
             bottom: -16px;
             left: 0;
             width: 36px;
-            height: 2px;
-            background-color: var(--accent-color);
+            height: 3px;
+            background-color: #111; /* Çizgi siyah yapıldı */
         }
-
-        p { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; }
 
         /* ---------- Uygulama İskeleti ---------- */
         .app-shell {
@@ -125,55 +122,47 @@
             align-items: center;
             transition: transform 0.65s cubic-bezier(0.22, 0.9, 0.32, 1);
             transform-origin: left center;
+            transform: translateZ(0); 
+            will-change: transform;
         }
 
-        body.docked .clapper-col { transform: scale(0.56); margin-left: -6vw; }
+        body.docked .clapper-col { transform: scale(0.56) translateZ(0); margin-left: -6vw; }
 
         .clapper { 
             width: 480px; 
             max-width: 86vw;
             cursor: pointer;
-            /* Blur tamamen kaldırıldı, yazılar cam gibi net! */
-            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.95));
+            /* Sarı arka planda çok boğmaması için gölge opaklığı ayarlandı */
+            filter: drop-shadow(0 25px 40px rgba(0,0,0,0.45));
+            outline: 1px solid transparent; 
         }
 
         /* Üst Vurucu Çubuk */
         .clapper-top {
             height: 54px;
-            border-radius: 8px 8px 0 0;
-            border: 1px solid #333;
-            border-bottom: 1px solid #111;
-            /* Komple siyah tonlar ve ince antrasit çizgiler */
-            background-image: repeating-linear-gradient(45deg, #050505 0 25px, #151515 25px 50px);
-            background-color: #080808;
+            border-radius: 12px 12px 0 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.8);
+            background: var(--stripe-grad);
             transform-origin: 4% 90%;
-            
-            /* Piksel kırılmalarını önleyen anti-aliasing hileleri */
-            transform: perspective(1px) translateZ(0) rotate(-15deg); 
-            outline: 1px solid transparent;
-            box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);
-            
+            transform: rotate(-15deg) translateZ(0);
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
             z-index: 2;
             backface-visibility: hidden;
         }
 
-        /* Hover (Üzerine gelince biraz daha açılır) */
-        .clapper:hover .clapper-top {
-            transform: perspective(1px) translateZ(0) rotate(-32deg);
-        }
+        .clapper:hover .clapper-top { transform: rotate(-32deg) translateZ(0); }
 
-        /* Çakma (Clap) Animasyonu */
         .clapper.is-clapping .clapper-top {
             animation: clapDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             pointer-events: none;
         }
 
         @keyframes clapDown {
-            0%   { transform: perspective(1px) translateZ(0) rotate(-32deg); }
-            45%  { transform: perspective(1px) translateZ(0) rotate(0deg); }
-            100% { transform: perspective(1px) translateZ(0) rotate(-15deg); }
+            0%   { transform: rotate(-32deg) translateZ(0); }
+            45%  { transform: rotate(0deg) translateZ(0); }
+            100% { transform: rotate(-15deg) translateZ(0); }
         }
 
         /* Menteşe */
@@ -184,36 +173,36 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: #999;
-            border: 2px solid #050505;
+            background: #d8d0c2;
+            border: 2px solid #050403;
             z-index: 3;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* Klaket Gövdesi (Komple Siyah) */
+        /* Klaket Gövdesi (Sinematik Siyah) */
         .clapper-body {
-            background: #080808; /* Simsiyah Gövde */
-            border: 1px solid #333; 
+            background: #0c0b0a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-top: none;
-            border-radius: 0 0 8px 8px;
+            border-radius: 0 0 12px 12px;
             overflow: hidden;
-            color: #ffffff; /* Yazılar bembeyaz ve keskin */
+            color: var(--text-main);
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
             position: relative;
-            outline: 1px solid transparent;
         }
 
         /* Alt Çene Şeridi */
         .clapper-jaw {
-            height: 14px;
-            background-image: repeating-linear-gradient(45deg, #050505 0 25px, #151515 25px 50px);
-            border-bottom: 1px solid #222;
+            height: 18px;
+            background: var(--stripe-grad);
+            border-bottom: 1px solid rgba(0,0,0,0.8);
         }
 
         /* Izgara (Grid) Sistemi */
         .clap-row {
             padding: 20px 20px;
             text-align: center;
-            border-bottom: 1px solid #222; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             font-family: var(--font-display);
             font-size: 1.7rem;
             letter-spacing: 1.5px;
@@ -233,23 +222,18 @@
 
         .clap-row.clap-title:hover {
             background-color: #151515; 
-            color: #ffffff;
+            color: var(--accent-bright);
         }
 
-        /* Menü Öğeleri İçin İkili Izgara (SCENE & TAKE) */
+        /* Menü Öğeleri İçin İkili Izgara */
         .clap-nav-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        .clap-nav-grid .clap-row {
-            border-bottom: none;
-        }
-        
-        .clap-nav-grid .clap-row:first-child {
-            border-right: 1px solid #222;
-        }
+        .clap-nav-grid .clap-row { border-bottom: none; }
+        .clap-nav-grid .clap-row:first-child { border-right: 1px solid rgba(255, 255, 255, 0.08); }
 
         .clap-row.clap-nav {
             cursor: pointer;
@@ -269,12 +253,24 @@
             font-size: 0.65rem;
             font-weight: 500;
             letter-spacing: 1.5px;
-            color: #777; 
+            color: #666; 
             text-transform: uppercase;
         }
         
-        /* Aktif sekmede küçük yazı rengi değişimi */
         .clap-row.clap-nav.active .tiny-label { color: #555; }
+
+        /* Yönlendirme Metni (Sarı arka planda okunsun diye siyah yapıldı) */
+        .clap-hint {
+            margin-top: 24px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            color: #222;
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        body.docked .clap-hint { opacity: 0; pointer-events: none; }
 
         /* Klaket flaşı */
         .clap-flash {
@@ -290,7 +286,7 @@
 
         @keyframes clapFlash {
             0%   { opacity: 0; }
-            15%  { opacity: 0.10; }
+            15%  { opacity: 0.15; }
             100% { opacity: 0; }
         }
 
@@ -319,9 +315,15 @@
         }
 
         /* Hakkımda */
-        .about-inner { display: grid; grid-template-columns: 3px 1fr; gap: 26px; align-items: start; }
-        .about-rule { background: linear-gradient(180deg, var(--accent-color), transparent); height: 100%; min-height: 100px; border-radius: 2px; }
-        .about-inner p { font-size: 1.12rem; line-height: 1.85; color: #d8d0c2; font-weight: 300; }
+        .about-inner { display: grid; grid-template-columns: 4px 1fr; gap: 26px; align-items: start; }
+        .about-rule { background: linear-gradient(180deg, #111, transparent); height: 100%; min-height: 100px; border-radius: 2px; }
+        
+        .about-inner p { 
+            font-size: 1.15rem; 
+            line-height: 1.85; 
+            color: #222; /* Sarı arka planda net okunması için koyu renk */
+            font-weight: 500; 
+        }
 
         /* Portfolyo */
         .portfolio-grid { 
@@ -333,10 +335,10 @@
         .card {
             background-color: var(--card-bg);
             border-radius: 6px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #222; /* Siyah kart etrafında hafif belirgin çizgi */
             overflow: hidden;
             transition: all 0.4s ease;
-            box-shadow: 0 16px 34px rgba(0,0,0,0.5);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.35);
             position: relative;
         }
 
@@ -345,14 +347,14 @@
             display: block;
             height: 12px;
             width: 100%;
-            background-image: radial-gradient(circle, var(--bg-color) 3px, transparent 3.2px);
+            background-image: radial-gradient(circle, #222 3px, transparent 3.2px);
             background-size: 20px 12px;
             background-position: 10px center;
-            background-color: #0d0b09;
-            border-bottom: 1px solid var(--border-color);
+            background-color: #050403;
+            border-bottom: 1px solid #222;
         }
 
-        .card:hover { border-color: var(--accent-color); box-shadow: 0 18px 40px var(--accent-glow); transform: translateY(-5px); }
+        .card:hover { border-color: #555; box-shadow: 0 18px 40px rgba(0,0,0,0.5); transform: translateY(-5px); }
 
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
@@ -368,13 +370,15 @@
             letter-spacing: 0.5px;
         }
 
+        /* Dahası Alanı (Siyah Kutu İçinde) */
         .portfolio-credits {
             margin: 40px 0 0;
             padding: 24px 26px;
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 1px solid #222;
             border-left: 3px solid var(--accent-color);
             border-radius: 6px;
+            box-shadow: 0 16px 34px rgba(0,0,0,0.25);
         }
 
         .portfolio-credits .credits-label {
@@ -390,7 +394,7 @@
 
         .portfolio-credits li {
             font-size: 0.92rem;
-            color: var(--text-muted);
+            color: var(--text-main); /* Kutu siyah olduğu için yazılar açık renk */
             font-weight: 300;
             line-height: 1.5;
             padding-left: 18px;
@@ -403,35 +407,37 @@
         .contact-links { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
         .contact-links a {
             font-family: var(--font-mono);
-            font-size: 1rem;
-            color: var(--text-muted);
-            transition: color 0.3s ease;
+            font-size: 1.05rem;
+            color: #111; /* Sarı arka planda net görünsün diye siyah */
+            transition: color 0.3s ease, text-shadow 0.3s ease;
             display: flex;
             align-items: center;
             gap: 12px;
+            font-weight: 500;
         }
-        .contact-links a i { color: var(--accent-color); width: 18px; }
-        .contact-links a:hover { color: var(--accent-bright); }
+        .contact-links a i { color: #111; width: 18px; }
+        .contact-links a:hover { color: #000; text-shadow: 0 0 10px rgba(0,0,0,0.2); }
 
         .social-icons { display: flex; gap: 18px; margin-top: 26px; }
         .social-icons a {
             display: flex; justify-content: center; align-items: center;
             width: 46px; height: 46px; border-radius: 50%;
-            background-color: var(--bg-raised); border: 1px solid var(--border-color);
+            background-color: var(--card-bg); border: 1px solid #111;
             color: var(--text-main); font-size: 1.1rem; transition: all 0.3s ease;
         }
         .social-icons a:hover {
-            background-color: var(--accent-color); color: var(--bg-color);
-            border-color: var(--accent-color); transform: translateY(-4px);
-            box-shadow: 0 10px 24px var(--accent-glow);
+            background-color: #111; color: #fff;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.3);
         }
 
         .copyright {
             margin-top: 44px;
             font-family: var(--font-mono);
             font-size: 0.78rem;
-            color: #6b655c;
+            color: #444;
             letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
         /* ---------- Dil Değiştirme Butonu ---------- */
@@ -442,11 +448,11 @@
             z-index: 1000;
             font-family: var(--font-mono);
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 1.5px;
-            background-color: rgba(10, 9, 8, 0.55);
+            background-color: rgba(10, 9, 8, 0.85); /* Sarı üstünde siyah şık buton */
             backdrop-filter: blur(6px);
-            border: 1px solid var(--border-color);
+            border: 1px solid #111;
             color: var(--text-main);
             padding: 10px 16px;
             border-radius: 30px;
@@ -455,9 +461,9 @@
         }
 
         .lang-toggle:hover {
-            border-color: var(--accent-color);
-            color: var(--accent-bright);
-            box-shadow: 0 0 16px var(--accent-glow);
+            border-color: #000;
+            box-shadow: 0 0 16px rgba(0,0,0,0.3);
+            color: #fff;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -493,7 +499,6 @@
 </head>
 <body>
 
-    <div class="bg-photo"></div>
     <div class="bg-overlay"></div>
     <div class="clap-flash" id="clapFlash"></div>
 
@@ -536,6 +541,8 @@
                     </div>
                 </div>
             </div>
+            <!-- Sarı arka planda net okunan koyu renkli yazı -->
+            <p class="clap-hint" id="clapHint" data-tr="Başlamak için bir bölüm seç" data-en="Pick a section to begin">Başlamak için bir bölüm seç</p>
         </div>
 
         <!-- İçerik Paneli -->
@@ -640,7 +647,7 @@
                 clapper.classList.add('is-clapping');
                 flash.classList.add('is-active');
                 
-                // Animasyon bitince class'ı sil (hover animasyonunun tekrar çalışması için)
+                // Animasyon bitince class'ı sil
                 setTimeout(function() {
                     clapper.classList.remove('is-clapping');
                 }, 400);
@@ -659,7 +666,7 @@
                 });
             });
 
-            // Ana ekrana dönme (İsme tıklayınca)
+            // Ana ekrana dönme
             homeBtn.addEventListener('click', function() {
                 if(document.body.classList.contains('docked')) {
                     playClap(function() {
