@@ -224,7 +224,7 @@
 
         .clap-row:last-child { border-bottom: none; box-shadow: none; }
 
-        /* Ana Sayfaya Dönüş Başlığı (Ortalanmış ve Temiz) */
+        /* Ana Sayfaya Dönüş Başlığı */
         .clap-row.clap-title {
             font-size: 2.1rem;
             font-weight: 500;
@@ -237,7 +237,7 @@
             color: #ffffff;
         }
 
-        /* Menü Öğeleri İçin İkili Izgara (Hakkımda & İletişim) */
+        /* Menü Öğeleri İçin İkili Izgara */
         .clap-nav-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -249,7 +249,6 @@
             box-shadow: none;
         }
         
-        /* Dikey ayıran iç çizgiye de parlama eklendi */
         .clap-nav-grid .clap-row:first-child { 
             border-right: 1px solid rgba(231, 169, 61, 0.5); 
             box-shadow: inset -4px 0 10px -5px rgba(231, 169, 61, 0.25);
@@ -264,21 +263,22 @@
         .clap-row.clap-nav:hover { background-color: #151515; color: #ffffff; }
         .clap-row.clap-nav.active { background-color: #ffffff; color: #000000; font-weight: bold; }
 
-        /* Klaket flaşı */
+        /* Klaket flaşı (Artık çok yumuşak, göz yormayan, sinematik sıcak bir ışık süzmesi) */
         .clap-flash {
             position: fixed;
             inset: 0;
-            background: #fff; 
+            background: var(--accent-bright); 
             opacity: 0;
             pointer-events: none;
             z-index: 500;
+            mix-blend-mode: screen; 
         }
 
-        .clap-flash.is-active { animation: clapFlash 0.4s ease-out; }
+        .clap-flash.is-active { animation: clapFlash 0.5s ease-out; }
 
         @keyframes clapFlash {
             0%   { opacity: 0; }
-            15%  { opacity: 0.10; }
+            10%  { opacity: 0.08; } /* Max opaklık çok düşürüldü */
             100% { opacity: 0; }
         }
 
