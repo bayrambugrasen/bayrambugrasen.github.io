@@ -85,8 +85,9 @@
         }
 
         /* Utility Sınıfları */
+        /* Hizalamayı sağlamak için container genişliğini Hakkımda kısmı ile eşitledik (900px) */
         .container {
-            max-width: 1200px;
+            max-width: 900px; 
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -179,7 +180,6 @@
 
         .portfolio-grid {
             display: grid;
-            /* DEĞİŞEN KISIM: Videolar daha büyük görünsün diye 2 sıra 2'li (2 kolon) yapıldı */
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
@@ -196,72 +196,20 @@
             transform: translateY(-5px);
         }
 
-        .video-thumbnail {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        /* Play button overlay (for placeholders) */
-        .play-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #FFFFFF;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .video-controls {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #FFFFFF;
-            font-size: 0.875rem;
-        }
-
-        .video-time-bar {
-            height: 3px;
-            background-color: rgba(255, 255, 255, 0.3);
-            flex-grow: 1;
-            border-radius: 10px;
-            margin-right: 15px;
-        }
-
-        .platform-icons {
-            display: flex;
-            gap: 8px;
-            font-size: 1rem;
-        }
-
         .card-content {
             padding: 20px;
         }
 
-        .card-content p {
-            font-size: 0.875rem;
-            color: #C0C0C0;
+        .card-content h3 {
+            font-size: 1rem;
             margin-bottom: 0;
+            color: var(--text-color);
+            font-weight: 700;
         }
 
         /* About Section */
         .about {
             padding: 80px 0;
-            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -318,7 +266,6 @@
             .social-icons {
                 margin-top: 10px;
             }
-            /* Mobilde butonların aralığını biraz kısmak iyi olabilir */
             .hero-buttons {
                 gap: 15px;
             }
@@ -342,7 +289,29 @@
 
         <section id="portfolio" class="container portfolio">
             <h2>PORTFOLYO</h2>
-        
+            <div class="portfolio-grid">
+                
+                <!-- 1. Video Kartı -->
+                <div class="card">
+                    <div style="padding:56.25% 0 0 0;position:relative;">
+                        <iframe src="https://www.youtube.com/embed/6Soki72Sd4s?si=gp-mVc2-CH4MCfHe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                    <div class="card-content">
+                        <h3>BRISA KADIN YELKEN TAKIMI TANITIM FİLMİ 2024</h3>
+                    </div>
+                </div>
+
+                <!-- 2. Video Kartı -->
+                <div class="card">
+                    <div style="padding:56.25% 0 0 0;position:relative;">
+                        <iframe src="https://player.vimeo.com/video/1014412963?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Porsche Taycan 2024" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                    <div class="card-content">
+                        <h3>PORSCHE TAYCAN 2024 LANSMAN FİLMİ</h3>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
         <section class="container about">
@@ -367,5 +336,7 @@
         </div>
     </footer>
 
+    <!-- Vimeo API Script -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
