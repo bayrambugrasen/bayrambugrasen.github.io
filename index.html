@@ -113,14 +113,29 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image:
-                linear-gradient(180deg, rgba(10,9,8,0.35) 0%, rgba(10,9,8,0.55) 55%, rgba(10,9,8,0.97) 100%),
-                url('sitefoto.jpg');
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Fotoğraf ayrı bir katmanda - yumuşak, sinematik bir bulanıklıkla düşük çözünürlüğü gizler */
+        .hero-photo {
+            position: absolute;
+            top: -3%;
+            left: -3%;
+            width: 106%;
+            height: 106%;
+            background-image: url('sitefoto.jpg');
             background-size: cover;
             background-position: center 30%;
-            background-attachment: fixed;
-            text-align: center;
-            animation: fadeIn 1.6s ease-out;
+            filter: blur(3px) saturate(1.08) brightness(0.95);
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(180deg, rgba(10,9,8,0.4) 0%, rgba(10,9,8,0.6) 55%, rgba(10,9,8,0.97) 100%);
+            z-index: 1;
         }
 
         .hero-content {
@@ -212,9 +227,51 @@
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 34px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
             margin-top: 20px;
+        }
+
+        /* Yayınlanmamış işler listesi - kolayca satır eklenebilir alan */
+        .portfolio-credits {
+            margin: 56px 0 0;
+            padding: 28px 30px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .portfolio-credits .credits-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-bottom: 16px;
+        }
+
+        .portfolio-credits ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .portfolio-credits li {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.5;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .portfolio-credits li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
         }
 
         .card {
@@ -362,25 +419,54 @@
         }
 
         /* ---------- Animasyonlar ---------- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @media (prefers-reduced-motion: reduce) {
             .hero-section, .card, .btn, .social-icons a { animation: none !important; transition: none !important; }
+        }
+
+        /* ---------- Dil Değiştirme Butonu ---------- */
+        .lang-toggle {
+            position: fixed;
+            top: 26px;
+            right: 26px;
+            z-index: 1000;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            background-color: rgba(10, 9, 8, 0.55);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-bright);
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        @media (max-width: 768px) {
+            .lang-toggle {
+                top: 16px;
+                right: 16px;
+                padding: 8px 13px;
+                font-size: 0.72rem;
+            }
         }
 
         /* ---------- Responsive ---------- */
         @media (max-width: 992px) {
             h1 { font-size: 4.2rem; letter-spacing: 6px; }
+            .portfolio-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
             h1 { font-size: 3rem; letter-spacing: 4px; }
             h2 { font-size: 2.1rem; }
-
-            .portfolio-grid { grid-template-columns: 1fr; }
 
             .about-inner { grid-template-columns: 3px 1fr; }
             .about p { font-size: 1.1rem; }
@@ -392,14 +478,19 @@
 </head>
 <body>
 
+    <!-- Dil Değiştirme Butonu -->
+    <button id="lang-toggle" class="lang-toggle" aria-label="Switch language">EN</button>
+
     <main>
         <!-- Hero (Karşılama) Alanı -->
         <section class="hero-section">
+            <div class="hero-photo"></div>
+            <div class="hero-overlay"></div>
             <div class="container hero-content">
                 <h1>BAYRAM BUĞRA ŞEN</h1>
                 <div class="hero-buttons">
-                    <a href="#portfolio" class="btn btn-primary">PORTFOLYO</a>
-                    <a href="#iletisim" class="btn btn-secondary">İLETİŞİM</a>
+                    <a href="#portfolio" class="btn btn-primary" data-tr="PORTFOLYO" data-en="PORTFOLIO">PORTFOLYO</a>
+                    <a href="#iletisim" class="btn btn-secondary" data-tr="İLETİŞİM" data-en="CONTACT">İLETİŞİM</a>
                 </div>
             </div>
         </section>
@@ -407,10 +498,10 @@
         <!-- Hakkımda Alanı -->
         <section class="about" id="hakkimda">
             <div class="container">
-                <h2>Hakkımda</h2>
+                <h2 data-tr="HAKKIMDA" data-en="ABOUT">HAKKIMDA</h2>
                 <div class="about-inner">
                     <div class="about-rule"></div>
-                    <p>Merhaba. Ben Buğra. İstanbul Kültür Üniversitesi Radyo, Televizyon ve Sinema Bölümü 3. sınıf öğrencisiyim. Çeşitli reklam ve belgesel filmlerinde kamera ve prodüksiyon asistanlığı yaptım. Aktif olarak bu alanlarda kendimi geliştiriyorum ve görsel hikaye anlatıcılığı üzerine çalışıyorum.</p>
+                    <p data-tr="Merhaba. Ben Buğra. İstanbul Kültür Üniversitesi Radyo, Televizyon ve Sinema Bölümü 3. sınıf öğrencisiyim. Çeşitli reklam ve belgesel filmlerinde kamera ve prodüksiyon asistanlığı yaptım. Aktif olarak bu alanlarda kendimi geliştiriyorum ve görsel hikaye anlatıcılığı üzerine çalışıyorum." data-en="Hi, I'm Buğra. I'm a 3rd-year student in the Radio, Television and Cinema department at Istanbul Kültür University. I've worked as a camera and production assistant on various commercials and documentary films. I'm actively developing myself in these fields and working on visual storytelling.">Merhaba. Ben Buğra. İstanbul Kültür Üniversitesi Radyo, Televizyon ve Sinema Bölümü 3. sınıf öğrencisiyim. Çeşitli reklam ve belgesel filmlerinde kamera ve prodüksiyon asistanlığı yaptım. Aktif olarak bu alanlarda kendimi geliştiriyorum ve görsel hikaye anlatıcılığı üzerine çalışıyorum.</p>
                 </div>
             </div>
         </section>
@@ -418,16 +509,17 @@
         <!-- Portfolyo Alanı -->
         <section id="portfolio" class="portfolio">
             <div class="container">
-                <h2>PORTFOLYO</h2>
+                <h2 data-tr="PORTFOLYO" data-en="PORTFOLIO">PORTFOLYO</h2>
+
                 <div class="portfolio-grid">
 
                     <!-- 1. Video Kartı (Brisa Kadın Yelken Takımı) -->
                     <div class="card">
                         <div class="video-container">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/6Soki72Sd4s?si=gp-mVc2-CH4MCfHe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/6Soki72Sd4s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                         </div>
                         <div class="card-content">
-                            <h3>BRISA KADIN YELKEN TAKIMI TANITIM FİLMİ 2024</h3>
+                            <h3 data-tr="BRISA KADIN YELKEN TAKIMI TANITIM FİLMİ 2024" data-en="BRISA WOMEN'S SAILING TEAM PROMOTIONAL FILM 2024">BRISA KADIN YELKEN TAKIMI TANITIM FİLMİ 2024</h3>
                         </div>
                     </div>
 
@@ -435,10 +527,32 @@
                     <div class="card">
                         <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1014412963?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Porsche Taycan 2024"></iframe></div>
                         <div class="card-content">
-                            <h3>PORSCHE TAYCAN LANSMAN FİLMİ 2024</h3>
+                            <h3 data-tr="PORSCHE TAYCAN LANSMAN FİLMİ 2024" data-en="PORSCHE TAYCAN LAUNCH FILM 2024">PORSCHE TAYCAN LANSMAN FİLMİ 2024</h3>
                         </div>
                     </div>
 
+                    <!-- 3. Video Kartı (Babür) -->
+                    <div class="card">
+                        <div class="video-container">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/JaVCoR2_fBg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="card-content">
+                            <h3>BABÜR - YERİ YURDUNU BİL</h3>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Dahası / Other&more - buraya kolayca yeni satır ekleyebilirsin -->
+                <div class="portfolio-credits">
+                    <span class="credits-label" data-tr="DAHASI" data-en="OTHER & MORE">DAHASI</span>
+                    <ul>
+                        <li data-tr="UNITED4 ARCADE REELS | KAMERA ASİSTANI" data-en="UNITED4 ARCADE REELS | CAMERA ASSISTANT">UNITED4 ARCADE REELS | KAMERA ASİSTANI</li>
+                        <li data-tr="ARTSY | CNBC-E | KAMERA ASİSTANI (2026)" data-en="ARTSY | CNBC-E | CAMERA ASSISTANT (2026)">ARTSY | CNBC-E | KAMERA ASİSTANI (2026)</li>
+                        <li data-tr="IKEA X TBWA X SUPER 8 REKLAM FİLMİ | KAMERA ASİSTANI (2026)" data-en="IKEA X TBWA X SUPER 8 COMMERCIAL FILM | CAMERA ASSISTANT (2026)">IKEA X TBWA X SUPER 8 REKLAM FİLMİ | KAMERA ASİSTANI (2026)</li>
+                        <li data-tr="AVVA X MUG | MURAT BOZ KIŞ KOLEKSİYONU TANITIM FİLMİ | KAMERA ASİSTANI (2026)" data-en="AVVA X MUG | MURAT BOZ WINTER COLLECTION PROMOTIONAL FILM | CAMERA ASSISTANT (2026)">AVVA X MUG | MURAT BOZ KIŞ KOLEKSİYONU TANITIM FİLMİ | KAMERA ASİSTANI (2026)</li>
+                        <li data-tr="BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI" data-en="BHS 4 EVENT FILM | ALPER BİÇEN | CAMERA ASSISTANT">BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -448,7 +562,7 @@
     <footer id="iletisim">
         <div class="container">
             <div class="footer-content">
-                <h2>İLETİŞİM</h2>
+                <h2 data-tr="İLETİŞİM" data-en="CONTACT">İLETİŞİM</h2>
 
                 <div class="contact-links">
                     <a href="mailto:bayrambugrasen8@gmail.com"><i class="fas fa-envelope"></i> bayrambugrasen8@gmail.com</a>
@@ -460,11 +574,33 @@
                 </div>
             </div>
 
-            <p class="copyright">© 2024 Bayram Buğra Şen. Tüm hakları saklıdır.</p>
+            <p class="copyright" data-tr="© 2024 BAYRAM BUĞRA ŞEN. TÜM HAKLARI SAKLIDIR." data-en="© 2024 BAYRAM BUĞRA ŞEN. ALL RIGHTS RESERVED.">© 2024 BAYRAM BUĞRA ŞEN. TÜM HAKLARI SAKLIDIR.</p>
         </div>
     </footer>
 
     <!-- Vimeo API Script -->
     <script src="https://player.vimeo.com/api/player.js"></script>
+
+    <!-- Dil Değiştirme Script -->
+    <script>
+        (function () {
+            var toggle = document.getElementById('lang-toggle');
+            var nodes = document.querySelectorAll('[data-tr][data-en]');
+            var current = 'tr';
+
+            function applyLang(lang) {
+                nodes.forEach(function (el) {
+                    el.textContent = el.getAttribute('data-' + lang);
+                });
+                document.documentElement.setAttribute('lang', lang === 'tr' ? 'tr' : 'en');
+                toggle.textContent = lang === 'tr' ? 'EN' : 'TR';
+                current = lang;
+            }
+
+            toggle.addEventListener('click', function () {
+                applyLang(current === 'tr' ? 'en' : 'tr');
+            });
+        })();
+    </script>
 </body>
 </html>
