@@ -21,11 +21,11 @@
 
         /* Modern Renk Paleti ve Değişkenler */
         :root {
-            --bg-color: #0a0a0a; /* Koyu kömür siyahı */
-            --card-bg: #141414; /* Biraz daha açık siyah/antrasit */
+            --bg-color: #0a0a0a;
+            --card-bg: #141414;
             --text-main: #ffffff;
-            --text-muted: #a1a1aa; /* Şık bir gri */
-            --accent-color: #00E5FF; /* Parlak sinematik mavi/cyan */
+            --text-muted: #a1a1aa;
+            --accent-color: #00E5FF;
             --accent-glow: rgba(0, 229, 255, 0.4);
             --border-color: rgba(255, 255, 255, 0.08);
             --font-main: 'Inter', sans-serif;
@@ -62,16 +62,17 @@
         h1 {
             font-size: 4rem;
             line-height: 1.1;
-            margin-bottom: 2rem; /* Subtitle kalktığı için boşluğu biraz artırdık */
+            margin-bottom: 2rem;
             background: linear-gradient(to right, #fff, #a1a1aa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
+        /* Başlıklar (Portfolyo, Hakkımda, İletişim) tamamen sola hizalı */
         h2 {
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            text-align: left; /* Sola hizalı */
+            text-align: left; 
             position: relative;
         }
 
@@ -80,7 +81,7 @@
             content: '';
             position: absolute;
             bottom: -15px;
-            left: 0; /* Çizgiyi de sola hizaladık */
+            left: 0; /* Çizgi sola hizalı */
             width: 60px;
             height: 4px;
             background-color: var(--accent-color);
@@ -140,7 +141,6 @@
             background-color: transparent;
             border: 2px solid var(--accent-color);
             color: var(--accent-color);
-            box-shadow: 0 0 15px transparent;
         }
 
         .btn-primary:hover {
@@ -189,6 +189,22 @@
             box-shadow: 0 15px 40px var(--accent-glow);
         }
 
+        /* Video alanı (YouTube için duyarlı oran) */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Oran */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
         .card-content {
             padding: 24px;
         }
@@ -203,11 +219,11 @@
         /* ----- HAKKIMDA SECTION ----- */
         .about {
             padding: 100px 0;
-            text-align: left; /* Sola hizalı */
+            text-align: left;
         }
 
         .about p {
-            margin: 40px 0 0; /* Auto ortalamayı kaldırdık */
+            margin: 40px 0 0;
             font-size: 1.2rem;
             line-height: 1.8;
         }
@@ -222,7 +238,7 @@
         .footer-content {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* İçeriği sola hizaladık */
+            align-items: flex-start;
             text-align: left;
             gap: 20px;
         }
@@ -240,7 +256,7 @@
             transition: color 0.3s ease;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* İkon ve metni sola hizaladık */
+            justify-content: flex-start;
             gap: 10px;
         }
 
@@ -280,7 +296,7 @@
             margin-top: 60px;
             font-size: 0.9rem;
             color: #555;
-            text-align: left; /* Sola hizalı */
+            text-align: left;
         }
 
         /* ----- ANİMASYONLAR ----- */
@@ -335,21 +351,22 @@
                 <h2>PORTFOLYO</h2>
                 <div class="portfolio-grid">
                     
-                    <!-- 1. Video Kartı (Brisa - YouTube) -->
+                    <!-- 1. Video Kartı (Brisa Kadın Yelken Takımı) -->
                     <div class="card">
-                        <div style="padding:56.25% 0 0 0;position:relative;">
-                            <iframe src="https://www.youtube.com/embed/6Soki72Sd4s?si=gp-mVc2-CH4MCfHe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                        <div class="video-container">
+                            <!-- YouTube Embed Kodu -->
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/6Soki72Sd4s?si=gp-mVc2-CH4MCfHe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                         <div class="card-content">
                             <h3>BRISA KADIN YELKEN TAKIMI TANITIM FİLMİ 2024</h3>
                         </div>
                     </div>
 
-                    <!-- 2. Video Kartı (Porsche - Vimeo) -->
+                    <!-- 2. Video Kartı (Porsche Taycan) -->
                     <div class="card">
-                        <div style="padding:56.25% 0 0 0;position:relative;">
-                            <iframe src="https://player.vimeo.com/video/1014412963?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Porsche Taycan 2024" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-                        </div>
+                        <!-- Vimeo Embed Kodu (Hiçbir müdahale yapılmadı, direkt senin kodun) -->
+                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1014412963?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Porsche Taycan 2024"></iframe></div>
+                        
                         <div class="card-content">
                             <h3>PORSCHE TAYCAN 2024 LANSMAN FİLMİ</h3>
                         </div>
@@ -389,7 +406,7 @@
         </div>
     </footer>
 
-    <!-- Vimeo API Script -->
+    <!-- Vimeo API Script (Senin kodunda yer alan kısım) -->
     <script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
