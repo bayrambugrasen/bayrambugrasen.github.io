@@ -19,14 +19,14 @@
             scroll-behavior: smooth;
         }
 
-        /* Modern Renk Paleti ve Değişkenler */
+        /* Modern Renk Paleti ve Değişkenler - Sarı/Amber Tonlarına Güncellendi */
         :root {
             --bg-color: #0a0a0a;
             --card-bg: #141414;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
-            --accent-color: #00E5FF;
-            --accent-glow: rgba(0, 229, 255, 0.4);
+            --accent-color: #F5A623; /* Sinematik sarı/amber tonu */
+            --accent-glow: rgba(245, 166, 35, 0.35); /* Sarı parlama efekti */
             --border-color: rgba(255, 255, 255, 0.08);
             --font-main: 'Inter', sans-serif;
         }
@@ -63,12 +63,13 @@
             font-size: 4rem;
             line-height: 1.1;
             margin-bottom: 2rem;
-            background: linear-gradient(to right, #fff, #a1a1aa);
+            /* Yazı rengine de hafif sarımsı bir geçiş eklendi */
+            background: linear-gradient(to right, #fff, #F5A623);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Başlıklar (Portfolyo, Hakkımda, İletişim) tamamen sola hizalı */
+        /* Başlıklar tamamen sola hizalı */
         h2 {
             font-size: 2.5rem;
             margin-bottom: 3rem;
@@ -76,12 +77,12 @@
             position: relative;
         }
 
-        /* Başlıkların altındaki şık çizgi */
+        /* Başlıkların altındaki şık sarı çizgi */
         h2::after {
             content: '';
             position: absolute;
             bottom: -15px;
-            left: 0; /* Çizgi sola hizalı */
+            left: 0;
             width: 60px;
             height: 4px;
             background-color: var(--accent-color);
@@ -108,7 +109,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: radial-gradient(circle, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.95) 100%), url('sitefoto.jpg');
+            background-image: radial-gradient(circle, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.95) 100%), url('sitefoto.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -162,9 +163,21 @@
             transform: translateY(-3px);
         }
 
+        /* ----- HAKKIMDA SECTION ----- */
+        .about {
+            padding: 100px 0 60px 0; /* Portfolyoya çok yapışmaması için boşluklar ayarlandı */
+            text-align: left;
+        }
+
+        .about p {
+            margin: 40px 0 0;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
         /* ----- PORTFOLYO SECTION ----- */
         .portfolio {
-            padding: 120px 0;
+            padding: 60px 0 120px 0;
         }
 
         .portfolio-grid {
@@ -214,18 +227,6 @@
             color: var(--text-main);
             margin-bottom: 0;
             line-height: 1.4;
-        }
-
-        /* ----- HAKKIMDA SECTION ----- */
-        .about {
-            padding: 100px 0;
-            text-align: left;
-        }
-
-        .about p {
-            margin: 40px 0 0;
-            font-size: 1.2rem;
-            line-height: 1.8;
         }
 
         /* ----- İLETİŞİM & FOOTER ----- */
@@ -345,7 +346,15 @@
             </div>
         </section>
 
-        <!-- Portfolyo Alanı -->
+        <!-- Hakkımda Alanı (Üste Taşındı) -->
+        <section class="about" id="hakkimda">
+            <div class="container">
+                <h2>Hakkımda</h2>
+                <p>Merhaba. Ben Buğra. İstanbul Kültür Üniversitesi Radyo, Televizyon ve Sinema Bölümü 3. sınıf öğrencisiyim. Çeşitli reklam ve belgesel filmlerinde kamera ve prodüksiyon asistanlığı yaptım. Aktif olarak bu alanlarda kendimi geliştiriyorum ve görsel hikaye anlatıcılığı üzerine çalışıyorum.</p>
+            </div>
+        </section>
+
+        <!-- Portfolyo Alanı (Alta Alındı) -->
         <section id="portfolio" class="portfolio">
             <div class="container">
                 <h2>PORTFOLYO</h2>
@@ -364,7 +373,7 @@
 
                     <!-- 2. Video Kartı (Porsche Taycan) -->
                     <div class="card">
-                        <!-- Vimeo Embed Kodu (Hiçbir müdahale yapılmadı, direkt senin kodun) -->
+                        <!-- Vimeo Embed Kodu -->
                         <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1014412963?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Porsche Taycan 2024"></iframe></div>
                         
                         <div class="card-content">
@@ -373,14 +382,6 @@
                     </div>
 
                 </div>
-            </div>
-        </section>
-
-        <!-- Hakkımda Alanı -->
-        <section class="about">
-            <div class="container">
-                <h2>Hakkımda</h2>
-                <p>Merhaba. Ben Buğra. İstanbul Kültür Üniversitesi Radyo, Televizyon ve Sinema Bölümü 3. sınıf öğrencisiyim. Çeşitli reklam ve belgesel filmlerinde kamera ve prodüksiyon asistanlığı yaptım. Aktif olarak bu alanlarda kendimi geliştiriyorum ve görsel hikaye anlatıcılığı üzerine çalışıyorum.</p>
             </div>
         </section>
     </main>
@@ -406,7 +407,7 @@
         </div>
     </footer>
 
-    <!-- Vimeo API Script (Senin kodunda yer alan kısım) -->
+    <!-- Vimeo API Script -->
     <script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
