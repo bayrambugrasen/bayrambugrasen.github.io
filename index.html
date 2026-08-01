@@ -4,38 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bayram Buğra Şen | Portfolyo</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <!-- Font Awesome (İkonlar için) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
-        /* Modern Renk Paleti ve Değişkenler - Sarı/Amber Tonları */
+        /* ---------- Sinematik Renk Paleti ---------- */
         :root {
-            --bg-color: #0a0a0a;
-            --card-bg: #141414;
-            --text-main: #ffffff;
-            --text-muted: #a1a1aa;
-            --accent-color: #F5A623; 
-            --accent-glow: rgba(245, 166, 35, 0.35); 
-            --border-color: rgba(255, 255, 255, 0.08);
+            --bg-color: #0a0908;
+            --bg-raised: #131110;
+            --card-bg: #15120f;
+            --text-main: #f4efe6;
+            --text-muted: #a39a8c;
+            --accent-color: #e7a93d;   /* altın sarısı - fotoğraftan */
+            --accent-bright: #f6cd77;  /* parlak vurgu */
+            --accent-glow: rgba(231, 169, 61, 0.35);
+            --border-color: rgba(244, 239, 230, 0.08);
+            --font-display: 'Bebas Neue', 'Inter', sans-serif;
             --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             background-color: var(--bg-color);
@@ -45,53 +42,59 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Tipografi */
-        h1, h2, h3 {
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        h1 {
-            font-size: 4rem;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-            letter-spacing: 4px; /* Harf arası açıldı */
-            color: #ffffff; /* Saf beyaz */
-            /* Sinematik arka plan parlaması (glow) eklendi, geçiş kaldırıldı */
-            text-shadow: 0 0 30px rgba(245, 166, 35, 0.6); 
-        }
-
-        /* Başlıklar tamamen sola hizalı */
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: left; 
             position: relative;
-            letter-spacing: 1.5px;
         }
 
-        /* Başlıkların altındaki şık sarı çizgi */
+        /* İnce film grenli doku - tüm sayfada */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.05;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ---------- Tipografi ---------- */
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 6.5rem;
+            line-height: 0.95;
+            letter-spacing: 10px;
+            color: #ffffff;
+            text-shadow: 0 0 50px rgba(231, 169, 61, 0.55);
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 3rem;
+            letter-spacing: 3px;
+            text-align: left;
+            position: relative;
+            display: flex;
+            align-items: baseline;
+            gap: 18px;
+            margin-bottom: 4rem;
+        }
+
         h2::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -18px;
             left: 0;
-            width: 60px;
-            height: 4px;
+            width: 36px;
+            height: 2px;
             background-color: var(--accent-color);
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1.08rem;
             color: var(--text-muted);
             font-weight: 300;
         }
@@ -102,19 +105,31 @@
             padding: 0 24px;
         }
 
-        /* ----- HERO SECTION ----- */
+        /* ---------- HERO ---------- */
         .hero-section {
             width: 100%;
             height: 100vh;
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: radial-gradient(circle, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.95) 100%), url('sitefoto.jpg');
+            background-image:
+                linear-gradient(180deg, rgba(10,9,8,0.35) 0%, rgba(10,9,8,0.55) 55%, rgba(10,9,8,0.97) 100%),
+                url('sitefoto.jpg');
             background-size: cover;
-            background-position: center;
+            background-position: center 30%;
             background-attachment: fixed;
             text-align: center;
-            animation: fadeIn 1.5s ease-out;
+            animation: fadeIn 1.6s ease-out;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            margin-bottom: 2.5rem;
         }
 
         .hero-buttons {
@@ -125,116 +140,156 @@
             flex-wrap: wrap;
         }
 
-        /* Buton Stilleri */
         .btn {
             display: inline-block;
             padding: 16px 48px;
-            font-size: 0.95rem;
-            font-weight: 600;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 50px;
+            letter-spacing: 2px;
+            border-radius: 2px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-primary {
             background-color: transparent;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-bright);
         }
 
         .btn-primary:hover {
             background-color: var(--accent-color);
             color: var(--bg-color);
-            box-shadow: 0 0 20px var(--accent-glow);
+            box-shadow: 0 0 25px var(--accent-glow);
             transform: translateY(-3px);
         }
 
         .btn-secondary {
-            background-color: var(--text-main);
-            border: 2px solid var(--text-main);
-            color: var(--bg-color);
+            background-color: transparent;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
         }
 
         .btn-secondary:hover {
-            background-color: transparent;
-            color: var(--text-main);
+            background-color: var(--text-main);
+            color: var(--bg-color);
             transform: translateY(-3px);
         }
 
-        /* ----- HAKKIMDA SECTION ----- */
+        /* ---------- HAKKIMDA ---------- */
         .about {
-            padding: 100px 0 60px 0; 
+            padding: 130px 0 70px 0;
             text-align: left;
+            position: relative;
+        }
+
+        .about-inner {
+            display: grid;
+            grid-template-columns: 3px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .about-rule {
+            background: linear-gradient(180deg, var(--accent-color), transparent);
+            height: 100%;
+            min-height: 140px;
+            border-radius: 2px;
         }
 
         .about p {
-            margin: 40px 0 0;
-            font-size: 1.2rem;
-            line-height: 1.8;
+            font-size: 1.3rem;
+            line-height: 1.85;
+            color: #d8d0c2;
+            font-weight: 300;
+            max-width: 680px;
         }
 
-        /* ----- PORTFOLYO SECTION ----- */
-        .portfolio {
-            padding: 60px 0 120px 0;
-        }
+        /* ---------- PORTFOLYO ---------- */
+        .portfolio { padding: 70px 0 130px 0; }
 
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-top: 50px;
+            gap: 34px;
+            margin-top: 20px;
         }
 
         .card {
             background-color: var(--card-bg);
-            border-radius: 16px;
+            border-radius: 4px;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.45s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+            position: relative;
+        }
+
+        /* Film şeridi perforasyon efekti - kart üstü */
+        .card::before {
+            content: '';
+            display: block;
+            height: 14px;
+            width: 100%;
+            background-image: radial-gradient(circle, var(--bg-color) 3px, transparent 3.2px);
+            background-size: 22px 14px;
+            background-position: 10px center;
+            background-color: #0d0b09;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-color: var(--accent-color);
-            box-shadow: 0 15px 40px var(--accent-glow);
+            box-shadow: 0 20px 50px var(--accent-glow);
         }
 
-        /* Video alanı (YouTube için duyarlı oran) */
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Oran */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
         }
 
         .video-container iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
         }
 
         .card-content {
-            padding: 24px;
+            padding: 22px 26px 26px;
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
         }
 
         .card-content h3 {
-            font-size: 1.1rem;
+            font-family: var(--font-main);
+            font-weight: 500;
+            font-size: 1.02rem;
             color: var(--text-main);
-            margin-bottom: 0;
             line-height: 1.4;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            text-transform: none;
         }
 
-        /* ----- İLETİŞİM & FOOTER ----- */
+        /* ---------- FOOTER / İLETİŞİM ---------- */
         footer {
-            background-color: #050505;
-            padding: 80px 0 40px;
+            background-color: #050403;
+            padding: 90px 0 40px;
             border-top: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-color), transparent 60%);
         }
 
         .footer-content {
@@ -248,41 +303,44 @@
         .contact-links {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 14px;
+            margin-top: 10px;
         }
 
         .contact-links a {
-            font-size: 1.1rem;
+            font-family: var(--font-mono);
+            font-size: 1rem;
             color: var(--text-muted);
             transition: color 0.3s ease;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .contact-links a:hover {
+        .contact-links a i {
             color: var(--accent-color);
+            width: 18px;
         }
+
+        .contact-links a:hover { color: var(--accent-bright); }
 
         .social-icons {
             display: flex;
-            gap: 20px;
-            margin-top: 30px;
+            gap: 18px;
+            margin-top: 26px;
         }
 
         .social-icons a {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background-color: var(--card-bg);
+            background-color: var(--bg-raised);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             transition: all 0.3s ease;
         }
 
@@ -290,46 +348,45 @@
             background-color: var(--accent-color);
             color: var(--bg-color);
             border-color: var(--accent-color);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--accent-glow);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px var(--accent-glow);
         }
 
         .copyright {
             margin-top: 60px;
-            font-size: 0.9rem;
-            color: #555;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: #55504a;
             text-align: left;
+            letter-spacing: 0.5px;
         }
 
-        /* ----- ANİMASYONLAR ----- */
+        /* ---------- Animasyonlar ---------- */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ----- RESPONSIVE (Mobil Uyumluluk) ----- */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-section, .card, .btn, .social-icons a { animation: none !important; transition: none !important; }
+        }
+
+        /* ---------- Responsive ---------- */
         @media (max-width: 992px) {
-            h1 { font-size: 3rem; }
+            h1 { font-size: 4.2rem; letter-spacing: 6px; }
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
+            h1 { font-size: 3rem; letter-spacing: 4px; }
+            h2 { font-size: 2.1rem; }
 
-            .hero-buttons {
-                flex-direction: column;
-                width: 100%;
-                gap: 15px;
-            }
+            .portfolio-grid { grid-template-columns: 1fr; }
 
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
+            .about-inner { grid-template-columns: 3px 1fr; }
+            .about p { font-size: 1.1rem; }
+
+            .hero-buttons { flex-direction: column; width: 100%; gap: 15px; }
+            .btn { width: 100%; max-width: 300px; text-align: center; }
         }
     </style>
 </head>
@@ -338,7 +395,7 @@
     <main>
         <!-- Hero (Karşılama) Alanı -->
         <section class="hero-section">
-            <div class="container hero">
+            <div class="container hero-content">
                 <h1>BAYRAM BUĞRA ŞEN</h1>
                 <div class="hero-buttons">
                     <a href="#portfolio" class="btn btn-primary">PORTFOLYO</a>
@@ -347,24 +404,26 @@
             </div>
         </section>
 
-        <!-- Hakkımda Alanı (Üste Taşındı) -->
+        <!-- Hakkımda Alanı -->
         <section class="about" id="hakkimda">
             <div class="container">
                 <h2>Hakkımda</h2>
-                <p>Merhaba. Ben Buğra. İstanbul Kültür Üniversitesi Radyo, Televizyon ve Sinema Bölümü 3. sınıf öğrencisiyim. Çeşitli reklam ve belgesel filmlerinde kamera ve prodüksiyon asistanlığı yaptım. Aktif olarak bu alanlarda kendimi geliştiriyorum ve görsel hikaye anlatıcılığı üzerine çalışıyorum.</p>
+                <div class="about-inner">
+                    <div class="about-rule"></div>
+                    <p>Merhaba. Ben Buğra. İstanbul Kültür Üniversitesi Radyo, Televizyon ve Sinema Bölümü 3. sınıf öğrencisiyim. Çeşitli reklam ve belgesel filmlerinde kamera ve prodüksiyon asistanlığı yaptım. Aktif olarak bu alanlarda kendimi geliştiriyorum ve görsel hikaye anlatıcılığı üzerine çalışıyorum.</p>
+                </div>
             </div>
         </section>
 
-        <!-- Portfolyo Alanı (Alta Alındı) -->
+        <!-- Portfolyo Alanı -->
         <section id="portfolio" class="portfolio">
             <div class="container">
                 <h2>PORTFOLYO</h2>
                 <div class="portfolio-grid">
-                    
+
                     <!-- 1. Video Kartı (Brisa Kadın Yelken Takımı) -->
                     <div class="card">
                         <div class="video-container">
-                            <!-- YouTube Embed Kodu -->
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/6Soki72Sd4s?si=gp-mVc2-CH4MCfHe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                         <div class="card-content">
@@ -374,9 +433,7 @@
 
                     <!-- 2. Video Kartı (Porsche Taycan) -->
                     <div class="card">
-                        <!-- Vimeo Embed Kodu -->
                         <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1014412963?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Porsche Taycan 2024"></iframe></div>
-                        
                         <div class="card-content">
                             <h3>PORSCHE TAYCAN LANSMAN FİLMİ 2024</h3>
                         </div>
@@ -392,18 +449,17 @@
         <div class="container">
             <div class="footer-content">
                 <h2>İLETİŞİM</h2>
-                
+
                 <div class="contact-links">
                     <a href="mailto:bayrambugrasen8@gmail.com"><i class="fas fa-envelope"></i> bayrambugrasen8@gmail.com</a>
                     <a href="tel:+905432038595"><i class="fas fa-phone"></i> +90 543 203 85 95</a>
                 </div>
 
-                <!-- Sadece Instagram İkonu -->
                 <div class="social-icons">
                     <a href="https://www.instagram.com/bayrambugrasen/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-            
+
             <p class="copyright">© 2024 Bayram Buğra Şen. Tüm hakları saklıdır.</p>
         </div>
     </footer>
