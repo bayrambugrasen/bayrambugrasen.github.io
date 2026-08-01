@@ -19,14 +19,14 @@
             scroll-behavior: smooth;
         }
 
-        /* Modern Renk Paleti ve Değişkenler - Sarı/Amber Tonlarına Güncellendi */
+        /* Modern Renk Paleti ve Değişkenler - Sarı/Amber Tonları */
         :root {
             --bg-color: #0a0a0a;
             --card-bg: #141414;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
-            --accent-color: #F5A623; /* Sinematik sarı/amber tonu */
-            --accent-glow: rgba(245, 166, 35, 0.35); /* Sarı parlama efekti */
+            --accent-color: #F5A623; 
+            --accent-glow: rgba(245, 166, 35, 0.35); 
             --border-color: rgba(255, 255, 255, 0.08);
             --font-main: 'Inter', sans-serif;
         }
@@ -56,17 +56,16 @@
         h1, h2, h3 {
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
         }
 
         h1 {
             font-size: 4rem;
             line-height: 1.1;
             margin-bottom: 2rem;
-            /* Yazı rengine de hafif sarımsı bir geçiş eklendi */
-            background: linear-gradient(to right, #fff, #F5A623);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px; /* Harf arası açıldı */
+            color: #ffffff; /* Saf beyaz */
+            /* Sinematik arka plan parlaması (glow) eklendi, geçiş kaldırıldı */
+            text-shadow: 0 0 30px rgba(245, 166, 35, 0.6); 
         }
 
         /* Başlıklar tamamen sola hizalı */
@@ -75,6 +74,7 @@
             margin-bottom: 3rem;
             text-align: left; 
             position: relative;
+            letter-spacing: 1.5px;
         }
 
         /* Başlıkların altındaki şık sarı çizgi */
@@ -165,7 +165,7 @@
 
         /* ----- HAKKIMDA SECTION ----- */
         .about {
-            padding: 100px 0 60px 0; /* Portfolyoya çok yapışmaması için boşluklar ayarlandı */
+            padding: 100px 0 60px 0; 
             text-align: left;
         }
 
@@ -227,6 +227,7 @@
             color: var(--text-main);
             margin-bottom: 0;
             line-height: 1.4;
+            letter-spacing: 1px;
         }
 
         /* ----- İLETİŞİM & FOOTER ----- */
