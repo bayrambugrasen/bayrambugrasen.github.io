@@ -31,16 +31,13 @@
             --font-main: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
             
-            /* Klaket Renkleri (Görseldeki Şeritler) */
-            --stripe-grad: linear-gradient(
+            /* Klaket Şeritleri - Arka plana uyumlu Siyah, Gri, Amber ve Bronz tonları */
+            --stripe-grad: repeating-linear-gradient(
                 115deg,
-                #111111 0%, #111111 16%,
-                #555555 16%, #555555 26%,
-                #fdfdfd 26%, #fdfdfd 40%,
-                #00a2e8 40%, #00a2e8 54%,
-                #ed1c24 54%, #ed1c24 68%,
-                #fff200 68%, #fff200 82%,
-                #22b14c 82%, #22b14c 100%
+                #050403 0%, #050403 15%,
+                #181614 15%, #181614 30%,
+                #e7a93d 30%, #e7a93d 33%,
+                #8a734d 33%, #8a734d 45%
             );
         }
 
@@ -129,7 +126,7 @@
 
         body.docked .app-shell { justify-content: flex-start; }
 
-        /* ---------- Profesyonel Klaket Tasarımı ---------- */
+        /* ---------- Profesyonel Siyah Klaket Tasarımı ---------- */
         .clapper-col {
             flex: 0 0 auto;
             display: flex;
@@ -137,33 +134,40 @@
             align-items: center;
             transition: transform 0.65s cubic-bezier(0.22, 0.9, 0.32, 1);
             transform-origin: left center;
+            transform: translateZ(0); 
+            will-change: transform;
         }
 
-        body.docked .clapper-col { transform: scale(0.56); margin-left: -6vw; }
+        body.docked .clapper-col { transform: scale(0.56) translateZ(0); margin-left: -6vw; }
 
         .clapper { 
             width: 480px; 
             max-width: 86vw;
             cursor: pointer;
+            /* Yırtılmaları pürüzsüzleştirmek için arttırılmış blur ve derin gölge */
+            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.95)) blur(0.8px);
+            outline: 1px solid transparent; 
         }
 
         /* Üst Vurucu Çubuk */
         .clapper-top {
-            height: 48px;
-            border-radius: 6px 6px 0 0;
-            border: 3px solid #111;
+            height: 54px;
+            border-radius: 12px 12px 0 0; /* Smooth köşeler */
+            /* Kenarlarda ışık süzülmesi efekti (amber yansıma) */
+            border: 1px solid rgba(231, 169, 61, 0.15);
+            border-bottom: 1px solid rgba(0,0,0,0.8);
             background: var(--stripe-grad);
             transform-origin: 4% 90%;
-            transform: rotate(-15deg); /* Başlangıçta hafif aralık */
+            transform: rotate(-15deg) translateZ(0); /* Başlangıçta hafif aralık */
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
             position: relative;
             z-index: 2;
+            backface-visibility: hidden;
         }
 
         /* Hover (Üzerine gelince biraz daha açılır) */
         .clapper:hover .clapper-top {
-            transform: rotate(-32deg);
+            transform: rotate(-32deg) translateZ(0);
         }
 
         /* Çakma (Clap) Animasyonu */
@@ -173,49 +177,51 @@
         }
 
         @keyframes clapDown {
-            0%   { transform: rotate(-32deg); }
-            45%  { transform: rotate(0deg); }
-            100% { transform: rotate(-15deg); }
+            0%   { transform: rotate(-32deg) translateZ(0); }
+            45%  { transform: rotate(0deg) translateZ(0); }
+            100% { transform: rotate(-15deg) translateZ(0); }
         }
 
+        /* Menteşe */
         .clapper-hinge {
             position: absolute;
             left: 10px;
-            bottom: -6px;
-            width: 14px;
-            height: 14px;
+            bottom: -8px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: #d8d0c2;
-            border: 3px solid #111;
+            border: 2px solid #050403;
             z-index: 3;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* Klaket Gövdesi (Referans görseldeki gibi beyaz ve keskin) */
+        /* Klaket Gövdesi (Sinematik Siyah) */
         .clapper-body {
-            background: #fdfdfd;
-            border: 3px solid #111;
+            background: #0c0b0a; /* Siyah/Koyu kömür */
+            border: 1px solid rgba(231, 169, 61, 0.15); /* Işık yansıması gibi duran ince kenarlık */
             border-top: none;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+            border-radius: 0 0 12px 12px;
             overflow: hidden;
-            color: #111;
+            color: var(--text-main);
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8); /* İç karartı */
+            position: relative;
         }
 
-        /* Alt Çene Şeridi (Görseldeki uyum için) */
+        /* Alt Çene Şeridi */
         .clapper-jaw {
-            height: 24px;
+            height: 18px;
             background: var(--stripe-grad);
-            border-bottom: 3px solid #111;
+            border-bottom: 1px solid rgba(0,0,0,0.8);
         }
 
         /* Izgara (Grid) Sistemi */
         .clap-row {
-            padding: 18px 20px;
+            padding: 20px 20px;
             text-align: center;
-            border-bottom: 3px solid #111; /* Keskin, özensiz durmayan çizgiler */
+            border-bottom: 1px solid rgba(231, 169, 61, 0.12); /* Çizgiler artık amber ışıltılı ve yumuşak */
             font-family: var(--font-display);
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             letter-spacing: 1.5px;
             position: relative;
         }
@@ -224,7 +230,7 @@
 
         /* Ana Sayfaya Dönüş Başlığı (PROD.) */
         .clap-row.clap-title {
-            padding: 24px 20px 20px;
+            padding: 26px 20px 20px;
             font-size: 2.1rem;
             font-weight: 500;
             cursor: pointer;
@@ -232,15 +238,15 @@
         }
 
         .clap-row.clap-title:hover {
-            background-color: #f0ebe1;
-            color: var(--accent-color);
+            background-color: rgba(231, 169, 61, 0.05); /* Siyah tasarıma uygun yansıma */
+            color: var(--accent-bright);
         }
 
         /* Menü Öğeleri İçin İkili Izgara (SCENE & TAKE) */
         .clap-nav-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            border-bottom: 3px solid #111;
+            border-bottom: 1px solid rgba(231, 169, 61, 0.12);
         }
         
         .clap-nav-grid .clap-row {
@@ -248,7 +254,7 @@
         }
         
         .clap-nav-grid .clap-row:first-child {
-            border-right: 3px solid #111; /* Ortadaki keskin dikey çizgi */
+            border-right: 1px solid rgba(231, 169, 61, 0.12);
         }
 
         .clap-row.clap-nav {
@@ -256,23 +262,23 @@
             transition: background-color 0.25s ease, color 0.25s ease;
         }
 
-        .clap-row.clap-nav:hover { background-color: #f0ebe1; color: var(--accent-color); }
-        .clap-row.clap-nav.active { background-color: #e5dfd5; color: #111; font-weight: bold; }
+        .clap-row.clap-nav:hover { background-color: rgba(231, 169, 61, 0.05); color: var(--accent-bright); }
+        .clap-row.clap-nav.active { background-color: rgba(231, 169, 61, 0.1); color: var(--accent-color); text-shadow: 0 0 10px var(--accent-glow); }
 
-        /* Köşelerdeki Küçük Klasik Yazılar (PROD, SCENE, TAKE vb.) */
+        /* Köşelerdeki Küçük Klasik Yazılar */
         .tiny-label {
             position: absolute;
-            top: 4px;
-            left: 8px;
+            top: 6px;
+            left: 10px;
             font-family: var(--font-mono);
             font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #333;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            color: var(--text-muted); /* Koyu gri/kehribar renginde yazı */
             text-transform: uppercase;
         }
 
-        /* Klaket flaşı (Çok daha yumuşak) */
+        /* Klaket flaşı */
         .clap-flash {
             position: fixed;
             inset: 0;
@@ -286,7 +292,7 @@
 
         @keyframes clapFlash {
             0%   { opacity: 0; }
-            15%  { opacity: 0.12; } /* Beyaz parlama çok yumuşatıldı */
+            15%  { opacity: 0.10; }
             100% { opacity: 0; }
         }
 
@@ -301,7 +307,7 @@
 
         body.docked .content-col {
             flex: 1 1 800px;
-            max-width: 1000px; /* Videolar rahat sığsın diye genişletildi */
+            max-width: 1000px; 
             opacity: 1;
             overflow: visible;
         }
@@ -462,7 +468,6 @@
 
         /* ---------- Responsive (Mobil Uyumluluk) ---------- */
         @media (max-width: 1024px) {
-            /* Tablet ekranlarında portfolyoyu 2'ye düşürür */
             .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
             body.docked .content-col { flex: 1 1 600px; }
         }
@@ -470,21 +475,20 @@
         @media (max-width: 900px) {
             .app-shell { flex-direction: column; justify-content: center; padding: 120px 6vw 60px; gap: 30px; }
             body.docked .app-shell { justify-content: flex-start; padding-top: 60px; }
-            body.docked .clapper-col { transform: scale(0.7); margin-left: 0; margin-bottom: -30px; }
+            body.docked .clapper-col { transform: scale(0.7) translateZ(0); margin-left: 0; margin-bottom: -30px; }
             .content-col { max-width: 100%; }
             body.docked .content-col { max-width: 100%; flex-basis: auto; }
         }
 
         @media (max-width: 768px) {
             .lang-toggle { top: 16px; right: 16px; padding: 8px 13px; font-size: 0.72rem; }
-            /* Telefondaki dar ekranda videoları alt alta tekler */
             .portfolio-grid { grid-template-columns: 1fr; }
             h2 { font-size: 1.8rem; }
         }
 
         @media (max-width: 480px) {
-            .clap-row { font-size: 1.5rem; padding: 18px 16px 14px; }
-            .clap-row.clap-title { font-size: 1.8rem; }
+            .clap-row { font-size: 1.5rem; padding: 20px 16px 16px; }
+            .clap-row.clap-title { font-size: 1.8rem; padding-top: 28px; }
             .clapper { width: 100%; max-width: 92vw; }
         }
     </style>
@@ -643,7 +647,7 @@
                     clapper.classList.remove('is-clapping');
                 }, 400);
 
-                if(callback) setTimeout(callback, 200); // 200ms tam şaklama anına denk gelir
+                if(callback) setTimeout(callback, 200);
             }
 
             // Menü geçişleri
