@@ -138,6 +138,8 @@
             max-width: 86vw;
             cursor: pointer;
             filter: drop-shadow(0 30px 50px rgba(0,0,0,0.95));
+            padding-top: 20px; /* Üst çubuğun hover alanında bug'a girmesini önleyen güvenli pay */
+            margin-top: -20px;
         }
 
         /* Üst Vurucu Çubuk */
@@ -154,24 +156,25 @@
             outline: 1px solid transparent;
             box-shadow: 0 0 15px rgba(231, 169, 61, 0.25), inset 0 1px 4px rgba(231, 169, 61, 0.4);
             
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            /* Daha smooth ve kararlı geçiş eğrisi */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 2;
             backface-visibility: hidden;
         }
 
         .clapper:hover .clapper-top {
-            transform: perspective(1px) translateZ(0) rotate(-32deg);
+            transform: perspective(1px) translateZ(0) rotate(-30deg);
         }
 
         .clapper.is-clapping .clapper-top {
-            animation: clapDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: clapDown 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             pointer-events: none;
         }
 
         @keyframes clapDown {
-            0%   { transform: perspective(1px) translateZ(0) rotate(-32deg); }
-            45%  { transform: perspective(1px) translateZ(0) rotate(0deg); }
+            0%   { transform: perspective(1px) translateZ(0) rotate(-30deg); }
+            50%  { transform: perspective(1px) translateZ(0) rotate(0deg); }
             100% { transform: perspective(1px) translateZ(0) rotate(-15deg); }
         }
 
@@ -189,7 +192,7 @@
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* Klaket Gövdesi (Komple Siyah) */
+        /* Klaket Gövdesi (Geri gelen parlama efektleriyle) */
         .clapper-body {
             background: #080808;
             border: 1px solid rgba(231, 169, 61, 0.55); 
@@ -199,7 +202,7 @@
             color: #ffffff; 
             position: relative;
             outline: 1px solid transparent;
-            box-shadow: 0 0 20px rgba(231, 169, 61, 0.2), inset 0 0 40px rgba(0,0,0,0.9);
+            box-shadow: 0 0 25px rgba(231, 169, 61, 0.25), inset 0 0 40px rgba(0,0,0,0.9);
         }
 
         /* Alt Çene Şeridi */
@@ -207,7 +210,7 @@
             height: 14px;
             background-image: repeating-linear-gradient(45deg, #050505 0 25px, #151515 25px 50px);
             border-bottom: 1px solid rgba(231, 169, 61, 0.6);
-            box-shadow: 0 4px 10px rgba(231, 169, 61, 0.2);
+            box-shadow: 0 4px 10px rgba(231, 169, 61, 0.25);
         }
 
         /* Izgara (Grid) Sistemi */
@@ -215,7 +218,7 @@
             padding: 24px 20px;
             text-align: center;
             border-bottom: 1px solid rgba(231, 169, 61, 0.5); 
-            box-shadow: inset 0 -4px 10px -5px rgba(231, 169, 61, 0.25);
+            box-shadow: inset 0 -4px 12px -5px rgba(231, 169, 61, 0.3);
             font-family: var(--font-display);
             font-size: 1.7rem;
             letter-spacing: 1.5px;
@@ -251,7 +254,7 @@
         
         .clap-nav-grid .clap-row:first-child { 
             border-right: 1px solid rgba(231, 169, 61, 0.5); 
-            box-shadow: inset -4px 0 10px -5px rgba(231, 169, 61, 0.25);
+            box-shadow: inset -4px 0 12px -5px rgba(231, 169, 61, 0.3);
         }
 
         .clap-row.clap-nav {
@@ -263,7 +266,7 @@
         .clap-row.clap-nav:hover { background-color: #151515; color: #ffffff; }
         .clap-row.clap-nav.active { background-color: #ffffff; color: #000000; font-weight: bold; }
 
-        /* Klaket flaşı (Artık çok yumuşak, göz yormayan, sinematik sıcak bir ışık süzmesi) */
+        /* Klaket flaşı (Göz yormayan sinematik akış) */
         .clap-flash {
             position: fixed;
             inset: 0;
@@ -278,7 +281,7 @@
 
         @keyframes clapFlash {
             0%   { opacity: 0; }
-            10%  { opacity: 0.08; } /* Max opaklık çok düşürüldü */
+            10%  { opacity: 0.08; }
             100% { opacity: 0; }
         }
 
@@ -532,7 +535,7 @@
                 <h2 data-tr="HAKKIMDA" data-en="ABOUT">HAKKIMDA</h2>
                 <div class="about-inner">
                     <div class="about-rule"></div>
-                    <p data-tr="Merhaba, ben Buğra. İstanbul merkezli bir sinema öğrencisiyim. Aktif olarak kamera asistanlığı yapıyor, eş zamanlı olarak işin kreatif tarafında bulunmaya ve kendi filmlerim yapmaya çalışıyorum." data-en="Hi, I'm Buğra. I'm an Istanbul-based film student. I actively work as a camera assistant. Alongside this, I am advancing on the creative side and working on my own films.">Merhaba, ben Buğra. İstanbul merkezli bir sinema öğrencisiyim. Aktif olarak kamera asistanlığı yapıyor, eş zamanlı olarak işin kreatif tarafında bulunmaya ve kendi filmlerimi yapmaya çalışıyorum.</p>
+                    <p data-tr="Merhaba, ben Buğra. İstanbul merkezli bir sinema öğrencisiyim. Aktif olarak kamera asistanlığı yapıyorum. Bir yandan&nbsp;da işin kreatif tarafında ilerliyor, kendi filmlerim üzerinde çalışıyorum." data-en="Hi, I'm Buğra. I'm an Istanbul-based film student. I actively work as a camera assistant. Alongside this, I am advancing on the creative side and working on my own films.">Merhaba, ben Buğra. İstanbul merkezli bir sinema öğrencisiyim. Aktif olarak kamera asistanlığı yapıyorum. Bir yandan&nbsp;da işin kreatif tarafında ilerliyor, kendi filmlerim üzerinde çalışıyorum.</p>
                 </div>
             </section>
 
@@ -578,7 +581,7 @@
                         <li data-tr="ARTSY | CNBC-E | KAMERA ASİSTANI (2026)" data-en="ARTSY | CNBC-E | CAMERA ASSISTANT (2026)">ARTSY | CNBC-E | KAMERA ASİSTANI (2026)</li>
                         <li data-tr="IKEA X TBWA X SUPER 8 REKLAM FİLMİ | KAMERA ASİSTANI (2026)" data-en="IKEA X TBWA X SUPER 8 COMMERCIAL FILM | CAMERA ASSISTANT (2026)">IKEA X TBWA X SUPER 8 REKLAM FİLMİ | KAMERA ASİSTANI (2026)</li>
                         <li data-tr="AVVA X MUG | MURAT BOZ KIŞ KOLEKSİYONU TANITIM FİLMİ | KAMERA ASİSTANI (2026)" data-en="AVVA X MUG | MURAT BOZ WINTER COLLECTION PROMOTIONAL FILM | CAMERA ASSISTANT (2026)">AVVA X MUG | MURAT BOZ KIŞ KOLEKSİYONU TANITIM FİLMİ | KAMERA ASİSTANI (2026)</li>
-                        <li data-tr="BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI" data-en="BHS 4 EVENT FILM | ALPER BİÇEN | CAMERA ASSISTANT">BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI</li>
+                        <li data-tr="BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI" data-en="BHS 4 EVENT FILM | ALPER BİÇEN | Camera Assistant">BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI</li>
                     </ul>
                 </div>
             </section>
@@ -629,9 +632,9 @@
                 // Animasyon bitince class'ı sil (hover animasyonunun tekrar çalışması için)
                 setTimeout(function() {
                     clapper.classList.remove('is-clapping');
-                }, 400);
+                }, 450);
 
-                if(callback) setTimeout(callback, 200);
+                if(callback) setTimeout(callback, 220);
             }
 
             // Menü geçişleri
