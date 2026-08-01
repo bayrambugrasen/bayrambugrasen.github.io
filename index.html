@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome (İkonlar için) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -30,6 +30,18 @@
             --font-display: 'Bebas Neue', 'Inter', sans-serif;
             --font-main: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Klaket Renkleri (Görseldeki Şeritler) */
+            --stripe-grad: linear-gradient(
+                115deg,
+                #111111 0%, #111111 16%,
+                #555555 16%, #555555 26%,
+                #fdfdfd 26%, #fdfdfd 40%,
+                #00a2e8 40%, #00a2e8 54%,
+                #ed1c24 54%, #ed1c24 68%,
+                #fff200 68%, #fff200 82%,
+                #22b14c 82%, #22b14c 100%
+            );
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -117,7 +129,7 @@
 
         body.docked .app-shell { justify-content: flex-start; }
 
-        /* ---------- Klaket ---------- */
+        /* ---------- Profesyonel Klaket Tasarımı ---------- */
         .clapper-col {
             flex: 0 0 auto;
             display: flex;
@@ -129,117 +141,142 @@
 
         body.docked .clapper-col { transform: scale(0.56); margin-left: -6vw; }
 
-        .clapper { width: 460px; max-width: 82vw; }
+        .clapper { 
+            width: 480px; 
+            max-width: 86vw;
+            cursor: pointer;
+        }
 
-        /* Klaket tasarımı daha smooth yapıldı (border-radius ve gölgeler yumuşatıldı) */
+        /* Üst Vurucu Çubuk */
         .clapper-top {
-            height: 52px;
-            border-radius: 8px 8px 0 0;
-            border: 2px solid #000;
-            background-image: repeating-linear-gradient(45deg, #0a0908 0 26px, #f4efe6 26px 52px);
-            transform-origin: 3% 95%;
-            transform: rotate(-13deg);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            height: 48px;
+            border-radius: 6px 6px 0 0;
+            border: 3px solid #111;
+            background: var(--stripe-grad);
+            transform-origin: 4% 90%;
+            transform: rotate(-15deg); /* Başlangıçta hafif aralık */
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
             position: relative;
             z-index: 2;
         }
 
+        /* Hover (Üzerine gelince biraz daha açılır) */
+        .clapper:hover .clapper-top {
+            transform: rotate(-32deg);
+        }
+
+        /* Çakma (Clap) Animasyonu */
         .clapper.is-clapping .clapper-top {
-            animation: clapDown 0.35s cubic-bezier(0.36, 0, 0.66, 1) forwards;
+            animation: clapDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            pointer-events: none;
         }
 
         @keyframes clapDown {
-            0%   { transform: rotate(-13deg); }
-            55%  { transform: rotate(4deg); }
-            100% { transform: rotate(0deg); }
+            0%   { transform: rotate(-32deg); }
+            45%  { transform: rotate(0deg); }
+            100% { transform: rotate(-15deg); }
         }
 
         .clapper-hinge {
             position: absolute;
             left: 10px;
-            bottom: -7px;
-            width: 16px;
-            height: 16px;
+            bottom: -6px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: #f4efe6;
-            border: 3px solid #000;
+            background: #d8d0c2;
+            border: 3px solid #111;
             z-index: 3;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
         }
 
+        /* Klaket Gövdesi (Referans görseldeki gibi beyaz ve keskin) */
         .clapper-body {
-            background: #0a0908;
-            border: 2px solid #000;
+            background: #fdfdfd;
+            border: 3px solid #111;
             border-top: none;
             border-radius: 0 0 8px 8px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.7);
             overflow: hidden;
+            color: #111;
         }
 
+        /* Alt Çene Şeridi (Görseldeki uyum için) */
+        .clapper-jaw {
+            height: 24px;
+            background: var(--stripe-grad);
+            border-bottom: 3px solid #111;
+        }
+
+        /* Izgara (Grid) Sistemi */
         .clap-row {
-            padding: 20px 22px;
+            padding: 18px 20px;
             text-align: center;
-            border-bottom: 1px solid rgba(244,239,230,0.15);
+            border-bottom: 3px solid #111; /* Keskin, özensiz durmayan çizgiler */
             font-family: var(--font-display);
-            font-size: 1.65rem;
-            letter-spacing: 2px;
-            color: #fff;
+            font-size: 1.8rem;
+            letter-spacing: 1.5px;
+            position: relative;
         }
 
         .clap-row:last-child { border-bottom: none; }
 
-        /* Ana Sayfaya Dönüş İçin Tıklanabilir İsim Başlığı */
+        /* Ana Sayfaya Dönüş Başlığı (PROD.) */
         .clap-row.clap-title {
-            font-size: 1.85rem;
-            text-decoration: none;
+            padding: 24px 20px 20px;
+            font-size: 2.1rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-            position: relative;
-        }
-        
-        /* İsmin altına zarif bir altın çizgi */
-        .clap-row.clap-title::after {
-            content: '';
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 2px;
-            background-color: var(--accent-color);
-            border-radius: 2px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .clap-row.clap-title:hover {
-            color: var(--accent-bright);
-            text-shadow: 0 0 15px var(--accent-glow);
+            background-color: #f0ebe1;
+            color: var(--accent-color);
+        }
+
+        /* Menü Öğeleri İçin İkili Izgara (SCENE & TAKE) */
+        .clap-nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: 3px solid #111;
+        }
+        
+        .clap-nav-grid .clap-row {
+            border-bottom: none;
+        }
+        
+        .clap-nav-grid .clap-row:first-child {
+            border-right: 3px solid #111; /* Ortadaki keskin dikey çizgi */
         }
 
         .clap-row.clap-nav {
             cursor: pointer;
-            transition: color 0.25s ease, background-color 0.25s ease;
+            transition: background-color 0.25s ease, color 0.25s ease;
         }
 
-        .clap-row.clap-nav:hover { color: var(--accent-bright); background: rgba(231,169,61,0.08); }
-        .clap-row.clap-nav.active { color: var(--accent-color); background: rgba(231,169,61,0.12); }
+        .clap-row.clap-nav:hover { background-color: #f0ebe1; color: var(--accent-color); }
+        .clap-row.clap-nav.active { background-color: #e5dfd5; color: #111; font-weight: bold; }
 
-        .clap-hint {
-            margin-top: 24px;
+        /* Köşelerdeki Küçük Klasik Yazılar (PROD, SCENE, TAKE vb.) */
+        .tiny-label {
+            position: absolute;
+            top: 4px;
+            left: 8px;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            text-align: center;
-            transition: opacity 0.3s ease;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #333;
+            text-transform: uppercase;
         }
 
-        body.docked .clap-hint { opacity: 0; pointer-events: none; }
-
-        /* Klaket flaşı (Yumuşatıldı) */
+        /* Klaket flaşı (Çok daha yumuşak) */
         .clap-flash {
             position: fixed;
             inset: 0;
-            background: var(--accent-bright); /* Beyaz yerine sıcak sarımsı bir ton */
+            background: #fff; 
             opacity: 0;
             pointer-events: none;
             z-index: 500;
@@ -249,7 +286,7 @@
 
         @keyframes clapFlash {
             0%   { opacity: 0; }
-            15%  { opacity: 0.15; } /* Opaklık düşürüldü, göz alıcı patlama engellendi */
+            15%  { opacity: 0.12; } /* Beyaz parlama çok yumuşatıldı */
             100% { opacity: 0; }
         }
 
@@ -263,8 +300,8 @@
         }
 
         body.docked .content-col {
-            flex: 1 1 800px; /* Genişlik artırıldı ki 3 video yan yana sığsın */
-            max-width: 950px;
+            flex: 1 1 800px;
+            max-width: 1000px; /* Videolar rahat sığsın diye genişletildi */
             opacity: 1;
             overflow: visible;
         }
@@ -282,10 +319,10 @@
         .about-rule { background: linear-gradient(180deg, var(--accent-color), transparent); height: 100%; min-height: 100px; border-radius: 2px; }
         .about-inner p { font-size: 1.12rem; line-height: 1.85; color: #d8d0c2; font-weight: 300; }
 
-        /* Portfolyo (Grid sistemi 3'lü yapıldı) */
+        /* Portfolyo (Grid sistemi 3'lü - Tek Satır) */
         .portfolio-grid { 
             display: grid; 
-            grid-template-columns: repeat(3, 1fr); /* 3'lü sıra */
+            grid-template-columns: repeat(3, 1fr); 
             gap: 20px; 
         }
 
@@ -425,7 +462,7 @@
 
         /* ---------- Responsive (Mobil Uyumluluk) ---------- */
         @media (max-width: 1024px) {
-            /* Tablet boyutlarında videoları 2'li sıraya düşürürüz çok sıkışmaması için */
+            /* Tablet ekranlarında portfolyoyu 2'ye düşürür */
             .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
             body.docked .content-col { flex: 1 1 600px; }
         }
@@ -433,22 +470,22 @@
         @media (max-width: 900px) {
             .app-shell { flex-direction: column; justify-content: center; padding: 120px 6vw 60px; gap: 30px; }
             body.docked .app-shell { justify-content: flex-start; padding-top: 60px; }
-            body.docked .clapper-col { transform: scale(0.65); margin-left: 0; margin-bottom: -30px; }
+            body.docked .clapper-col { transform: scale(0.7); margin-left: 0; margin-bottom: -30px; }
             .content-col { max-width: 100%; }
             body.docked .content-col { max-width: 100%; flex-basis: auto; }
         }
 
         @media (max-width: 768px) {
             .lang-toggle { top: 16px; right: 16px; padding: 8px 13px; font-size: 0.72rem; }
-            /* Mobilde videoları tek sıra alt alta yapar */
+            /* Telefondaki dar ekranda videoları alt alta tekler */
             .portfolio-grid { grid-template-columns: 1fr; }
             h2 { font-size: 1.8rem; }
         }
 
         @media (max-width: 480px) {
-            .clap-row { font-size: 1.3rem; padding: 15px 16px; }
-            .clap-row.clap-title { font-size: 1.5rem; }
-            .clapper { width: 100%; max-width: 90vw; }
+            .clap-row { font-size: 1.5rem; padding: 18px 16px 14px; }
+            .clap-row.clap-title { font-size: 1.8rem; }
+            .clapper { width: 100%; max-width: 92vw; }
         }
     </style>
 </head>
@@ -470,14 +507,33 @@
                     <div class="clapper-hinge"></div>
                 </div>
                 <div class="clapper-body">
-                    <!-- Başlığa id eklendi, tıklanınca ana sayfaya dönecek -->
-                    <div class="clap-row clap-title" id="homeBtn"><span>BAYRAM BUĞRA ŞEN</span></div>
-                    <div class="clap-row clap-nav" data-target="hakkimda"><span data-tr="HAKKIMDA" data-en="ABOUT">HAKKIMDA</span></div>
-                    <div class="clap-row clap-nav" data-target="portfolio"><span data-tr="PORTFOLYO" data-en="PORTFOLIO">PORTFOLYO</span></div>
-                    <div class="clap-row clap-nav" data-target="iletisim"><span data-tr="İLETİŞİM" data-en="CONTACT">İLETİŞİM</span></div>
+                    <!-- Görseldeki tasarım diline uygun çene -->
+                    <div class="clapper-jaw"></div>
+                    
+                    <!-- Başlık (Ana Sayfaya Dönüş) -->
+                    <div class="clap-row clap-title" id="homeBtn">
+                        <span class="tiny-label">PROD.</span>
+                        <span>BAYRAM BUĞRA ŞEN</span>
+                    </div>
+
+                    <!-- Menü Izgarası -->
+                    <div class="clap-nav-grid">
+                        <div class="clap-row clap-nav" data-target="hakkimda">
+                            <span class="tiny-label" data-tr="SCENE" data-en="SCENE">SCENE</span>
+                            <span class="clap-text" data-tr="HAKKIMDA" data-en="ABOUT">HAKKIMDA</span>
+                        </div>
+                        <div class="clap-row clap-nav" data-target="portfolio">
+                            <span class="tiny-label" data-tr="TAKE" data-en="TAKE">TAKE</span>
+                            <span class="clap-text" data-tr="PORTFOLYO" data-en="PORTFOLIO">PORTFOLYO</span>
+                        </div>
+                    </div>
+                    
+                    <div class="clap-row clap-nav" data-target="iletisim">
+                        <span class="tiny-label" data-tr="DATE" data-en="DATE">DATE</span>
+                        <span class="clap-text" data-tr="İLETİŞİM" data-en="CONTACT">İLETİŞİM</span>
+                    </div>
                 </div>
             </div>
-            <p class="clap-hint" id="clapHint" data-tr="Başlamak için bir bölüm seç" data-en="Pick a section to begin">Başlamak için bir bölüm seç</p>
         </div>
 
         <!-- İçerik Paneli -->
@@ -497,7 +553,7 @@
                 <h2 data-tr="PORTFOLYO" data-en="PORTFOLIO">PORTFOLYO</h2>
 
                 <div class="portfolio-grid">
-                    <!-- 1. Video Kartı (Brisa Kadın Yelken Takımı) -->
+                    <!-- 1. Video Kartı -->
                     <div class="card">
                         <div class="video-container">
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/6Soki72Sd4s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
@@ -507,7 +563,7 @@
                         </div>
                     </div>
 
-                    <!-- 2. Video Kartı (Porsche Taycan) -->
+                    <!-- 2. Video Kartı -->
                     <div class="card">
                         <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1014412963?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Porsche Taycan 2024"></iframe></div>
                         <div class="card-content">
@@ -515,7 +571,7 @@
                         </div>
                     </div>
 
-                    <!-- 3. Video Kartı (Babür) -->
+                    <!-- 3. Video Kartı -->
                     <div class="card">
                         <div class="video-container">
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/JaVCoR2_fBg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
@@ -526,7 +582,7 @@
                     </div>
                 </div>
 
-                <!-- Dahası / Other&more -->
+                <!-- Dahası -->
                 <div class="portfolio-credits">
                     <span class="credits-label" data-tr="DAHASI" data-en="OTHER & MORE">DAHASI</span>
                     <ul>
@@ -578,10 +634,16 @@
             function playClap(callback) {
                 clapper.classList.remove('is-clapping');
                 flash.classList.remove('is-active');
-                void clapper.offsetWidth; // reflow
+                void clapper.offsetWidth; // reflow animasyonu sıfırlar
                 clapper.classList.add('is-clapping');
                 flash.classList.add('is-active');
-                if(callback) setTimeout(callback, 260);
+                
+                // Animasyon bitince class'ı sil (hover animasyonunun tekrar çalışması için)
+                setTimeout(function() {
+                    clapper.classList.remove('is-clapping');
+                }, 400);
+
+                if(callback) setTimeout(callback, 200); // 200ms tam şaklama anına denk gelir
             }
 
             // Menü geçişleri
