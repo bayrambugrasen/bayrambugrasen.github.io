@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Font Awesome (İkonlar için) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -34,8 +34,6 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        html, body { height: 100%; }
-
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -47,7 +45,6 @@
             position: relative;
         }
 
-        /* İnce film grenli doku */
         body::before {
             content: '';
             position: fixed;
@@ -61,311 +58,182 @@
 
         a { text-decoration: none; color: inherit; }
 
-        /* ---------- Sabit Arka Plan Fotoğrafı ---------- */
-        .bg-photo {
-            position: fixed;
-            inset: -3%;
-            background-image: url('sitefoto.jpg');
-            background-size: cover;
-            background-position: center 30%;
-            filter: blur(4px) saturate(1.05) brightness(0.55);
-            z-index: -2;
-        }
-
-        .bg-overlay {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 20% 30%, rgba(10,9,8,0.55) 0%, rgba(10,9,8,0.93) 70%);
-            z-index: -1;
-        }
+        img, iframe { max-width: 100%; }
 
         /* ---------- Tipografi ---------- */
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: clamp(2.6rem, 7vw, 6.5rem);
+            line-height: 0.95;
+            letter-spacing: clamp(3px, 1vw, 10px);
+            color: #ffffff;
+            text-shadow: 0 0 50px rgba(231, 169, 61, 0.55);
+        }
+
         h2 {
             font-family: var(--font-display);
             font-weight: 400;
-            font-size: 2.2rem;
-            letter-spacing: 2px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            letter-spacing: 3px;
             text-align: left;
             position: relative;
-            margin-bottom: 2.6rem;
+            display: flex;
+            align-items: baseline;
+            gap: 18px;
+            margin-bottom: 4rem;
         }
 
         h2::after {
             content: '';
             position: absolute;
-            bottom: -16px;
+            bottom: -18px;
             left: 0;
             width: 36px;
             height: 2px;
             background-color: var(--accent-color);
         }
 
-        p { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; }
+        p {
+            font-size: 1.08rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
 
-        /* ---------- Uygulama İskeleti ---------- */
-        .app-shell {
-            position: relative;
-            z-index: 1;
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ---------- HERO ---------- */
+        .hero-section {
+            width: 100%;
             min-height: 100vh;
+            position: relative;
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 60px;
-            padding: 40px 6vw;
-            transition: justify-content 0.4s ease;
-        }
-
-        body.docked .app-shell { justify-content: flex-start; }
-
-        /* ---------- Profesyonel Siyah Klaket Tasarımı ---------- */
-        .clapper-col {
-            flex: 0 0 auto;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            transition: transform 0.65s cubic-bezier(0.22, 0.9, 0.32, 1);
-            transform-origin: left center;
+            text-align: center;
+            overflow: hidden;
+            padding: 100px 0;
         }
 
-        body.docked .clapper-col { 
-            transform: scale(0.85); 
-            margin-left: -2vw; 
-            margin-right: -30px;
+        .hero-photo {
+            position: absolute;
+            top: -3%;
+            left: -3%;
+            width: 106%;
+            height: 106%;
+            background-image: url('sitefoto.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            filter: blur(3px) saturate(1.08) brightness(0.95);
+            z-index: 0;
         }
 
-        .clapper { 
-            width: 480px; 
-            max-width: 86vw;
-            cursor: pointer;
-            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.95));
-            padding-top: 20px;
-            margin-top: -20px;
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(180deg, rgba(10,9,8,0.4) 0%, rgba(10,9,8,0.6) 55%, rgba(10,9,8,0.97) 100%);
+            z-index: 1;
         }
 
-        /* Üst Vurucu Çubuk */
-        .clapper-top {
-            height: 54px;
-            border-radius: 8px 8px 0 0;
-            border: 1px solid rgba(231, 169, 61, 0.55);
-            border-bottom: 2px solid rgba(231, 169, 61, 0.85);
-            border-left: 1px solid rgba(231, 169, 61, 0.55);
-            background-image: repeating-linear-gradient(45deg, #050505 0 25px, #151515 25px 50px);
-            background-color: #080808;
-            transform-origin: 4% 90%;
-            
-            transform: perspective(1px) translateZ(0) rotate(-15deg); 
-            outline: 1px solid transparent;
-            box-shadow: 0 0 15px rgba(231, 169, 61, 0.25), inset 0 1px 4px rgba(231, 169, 61, 0.4);
-            
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        .hero-content {
             position: relative;
             z-index: 2;
-            backface-visibility: hidden;
-        }
-
-        .clapper:hover .clapper-top {
-            transform: perspective(1px) translateZ(0) rotate(-30deg);
-        }
-
-        .clapper.is-clapping .clapper-top {
-            animation: clapDown 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            pointer-events: none;
-        }
-
-        @keyframes clapDown {
-            0%   { transform: perspective(1px) translateZ(0) rotate(-30deg); }
-            50%  { transform: perspective(1px) translateZ(0) rotate(0deg); }
-            100% { transform: perspective(1px) translateZ(0) rotate(-15deg); }
-        }
-
-        /* Menteşe */
-        .clapper-hinge {
-            position: absolute;
-            left: 10px;
-            bottom: -8px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #999;
-            border: 2px solid rgba(231, 169, 61, 0.3);
-            z-index: 3;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
-        }
-
-        /* Klaket Gövdesi */
-        .clapper-body {
-            background: #080808;
-            border: 1px solid rgba(231, 169, 61, 0.55); 
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            overflow: hidden;
-            color: #ffffff; 
-            position: relative;
-            outline: 1px solid transparent;
-            box-shadow: 0 0 25px rgba(231, 169, 61, 0.25), inset 0 0 40px rgba(0,0,0,0.9);
-        }
-
-        /* Alt Çene Şeridi */
-        .clapper-jaw {
-            height: 14px;
-            background-image: repeating-linear-gradient(45deg, #050505 0 25px, #151515 25px 50px);
-            border-bottom: 1px solid rgba(231, 169, 61, 0.6);
-            box-shadow: 0 4px 10px rgba(231, 169, 61, 0.25);
-        }
-
-        /* Izgara (Grid) Sistemi */
-        .clap-row {
-            padding: 24px 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(231, 169, 61, 0.5); 
-            box-shadow: inset 0 -4px 12px -5px rgba(231, 169, 61, 0.3);
-            font-family: var(--font-display);
-            font-size: 1.7rem;
-            letter-spacing: 1.5px;
-            position: relative;
-        }
-
-        .clap-row:last-child { border-bottom: none; box-shadow: none; }
-
-        /* Ana Sayfaya Dönüş Başlığı */
-        .clap-row.clap-title {
-            font-size: 2.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .clap-row.clap-title:hover {
-            background-color: #151515; 
-            color: #ffffff;
-        }
-
-        /* Menü Öğeleri İçin İkili Izgara */
-        .clap-nav-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border-bottom: none;
-        }
-        
-        .clap-nav-grid .clap-row { 
-            border-bottom: none; 
-            box-shadow: none;
-        }
-        
-        .clap-nav-grid .clap-row:first-child { 
-            border-right: 1px solid rgba(231, 169, 61, 0.5); 
-            box-shadow: inset -4px 0 12px -5px rgba(231, 169, 61, 0.3);
-        }
-
-        .clap-row.clap-nav {
-            cursor: pointer;
-            transition: background-color 0.25s ease, color 0.25s ease;
-            color: #d1d1d1;
-        }
-
-        .clap-row.clap-nav:hover { background-color: #151515; color: #ffffff; }
-        .clap-row.clap-nav.active { background-color: #ffffff; color: #000000; font-weight: bold; }
-
-        /* Klaket flaşı (Yumuşak sinematik akış) */
-        .clap-flash {
-            position: fixed;
-            inset: 0;
-            background: var(--accent-bright); 
-            opacity: 0;
-            pointer-events: none;
-            z-index: 500;
-            mix-blend-mode: screen; 
-        }
-
-        .clap-flash.is-active { animation: clapFlash 0.5s ease-out; }
-
-        @keyframes clapFlash {
-            0%   { opacity: 0; }
-            10%  { opacity: 0.08; }
-            100% { opacity: 0; }
-        }
-
-        /* ---------- İçerik Paneli ---------- */
-        .content-col {
-            flex: 0 0 0;
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: opacity 0.4s ease;
-        }
-
-        body.docked .content-col {
-            flex: 1 1 800px;
-            max-width: 1000px; 
-            opacity: 1;
-            overflow: visible;
-        }
-
-        .panel { display: none; }
-        .panel.active { display: block; animation: panelIn 0.5s ease; }
-
-        @keyframes panelIn {
-            from { opacity: 0; transform: translateX(24px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Hakkımda */
-        .about-inner { display: grid; grid-template-columns: 3px 1fr; gap: 26px; align-items: start; }
-        .about-rule { background: linear-gradient(180deg, var(--accent-color), transparent); height: 100%; min-height: 100px; border-radius: 2px; }
-        .about-inner p { font-size: 1.12rem; line-height: 1.85; color: #d8d0c2; font-weight: 300; }
-
-        /* Portfolyo */
-        .portfolio-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 20px; 
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 16px 34px rgba(0,0,0,0.5);
-            position: relative;
-        }
-
-        .card::before {
-            content: '';
-            display: block;
-            height: 12px;
             width: 100%;
-            background-image: radial-gradient(circle, var(--bg-color) 3px, transparent 3.2px);
-            background-size: 20px 12px;
-            background-position: 10px center;
-            background-color: #0d0b09;
-            border-bottom: 1px solid var(--border-color);
         }
 
-        .card:hover { border-color: var(--accent-color); box-shadow: 0 18px 40px var(--accent-glow); transform: translateY(-5px); }
+        .hero-content h1 {
+            margin-bottom: 2.5rem;
+        }
 
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-        .card-content { padding: 16px; }
-
-        .card-content h3 {
-            font-family: var(--font-main);
+        .btn {
+            display: inline-block;
+            padding: 15px 38px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
             font-weight: 500;
-            font-size: 0.85rem;
-            color: var(--text-main);
-            line-height: 1.4;
-            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-bright);
+        }
+
+        .btn-primary:hover,
+        .btn-secondary:hover,
+        .btn-outline:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: translateY(-3px);
+        }
+
+        /* ---------- HAKKIMDA ---------- */
+        .about {
+            padding: 130px 0 70px 0;
+            text-align: left;
+            position: relative;
+        }
+
+        .about-inner {
+            display: grid;
+            grid-template-columns: 3px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .about-rule {
+            background: linear-gradient(180deg, var(--accent-color), transparent);
+            height: 100%;
+            min-height: 140px;
+            border-radius: 2px;
+        }
+
+        .about p {
+            font-size: 1.3rem;
+            line-height: 1.85;
+            color: #ede6d8;
+            font-weight: 400;
+            max-width: 680px;
+        }
+
+        /* ---------- PORTFOLYO ---------- */
+        .portfolio { padding: 70px 0 130px 0; }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 20px;
         }
 
         .portfolio-credits {
-            margin: 40px 0 0;
-            padding: 24px 26px;
+            margin: 56px 0 0;
+            padding: 28px 30px;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-left: 3px solid var(--accent-color);
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .portfolio-credits .credits-label {
@@ -374,13 +242,18 @@
             font-size: 0.75rem;
             letter-spacing: 2px;
             color: var(--accent-color);
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
-        .portfolio-credits ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .portfolio-credits ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
         .portfolio-credits li {
-            font-size: 0.92rem;
+            font-size: 0.98rem;
             color: var(--text-muted);
             font-weight: 300;
             line-height: 1.5;
@@ -388,10 +261,99 @@
             position: relative;
         }
 
-        .portfolio-credits li::before { content: '—'; position: absolute; left: 0; color: var(--accent-color); }
+        .portfolio-credits li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
 
-        /* İletişim */
-        .contact-links { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.45s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            display: block;
+            height: 14px;
+            width: 100%;
+            background-image: radial-gradient(circle, var(--bg-color) 3px, transparent 3.2px);
+            background-size: 22px 14px;
+            background-position: 10px center;
+            background-color: #0d0b09;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 50px var(--accent-glow);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .card-content {
+            padding: 20px 22px 24px;
+        }
+
+        .card-content h3 {
+            font-family: var(--font-main);
+            font-weight: 500;
+            font-size: 0.96rem;
+            color: var(--text-main);
+            line-height: 1.4;
+            letter-spacing: 0.4px;
+            text-transform: none;
+        }
+
+        /* ---------- FOOTER / İLETİŞİM ---------- */
+        footer {
+            background-color: #050403;
+            padding: 90px 0 40px;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-color), transparent 60%);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            gap: 20px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
         .contact-links a {
             font-family: var(--font-mono);
             font-size: 1rem;
@@ -400,29 +362,55 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            word-break: break-word;
         }
-        .contact-links a i { color: var(--accent-color); width: 18px; }
+
+        .contact-links a i {
+            color: var(--accent-color);
+            width: 18px;
+        }
+
         .contact-links a:hover { color: var(--accent-bright); }
 
-        .social-icons { display: flex; gap: 18px; margin-top: 26px; }
-        .social-icons a {
-            display: flex; justify-content: center; align-items: center;
-            width: 46px; height: 46px; border-radius: 50%;
-            background-color: var(--bg-raised); border: 1px solid var(--border-color);
-            color: var(--text-main); font-size: 1.1rem; transition: all 0.3s ease;
+        .social-icons {
+            display: flex;
+            gap: 18px;
+            margin-top: 26px;
         }
+
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--bg-raised);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 1.15rem;
+            transition: all 0.3s ease;
+        }
+
         .social-icons a:hover {
-            background-color: var(--accent-color); color: var(--bg-color);
-            border-color: var(--accent-color); transform: translateY(-4px);
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-color: var(--accent-color);
+            transform: translateY(-4px);
             box-shadow: 0 10px 24px var(--accent-glow);
         }
 
         .copyright {
-            margin-top: 44px;
+            margin-top: 60px;
             font-family: var(--font-mono);
-            font-size: 0.78rem;
-            color: #6b655c;
+            font-size: 0.8rem;
+            color: #55504a;
+            text-align: left;
             letter-spacing: 0.5px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-section, .card, .btn, .social-icons a { animation: none !important; transition: none !important; }
         }
 
         /* ---------- Dil Değiştirme Butonu ---------- */
@@ -451,143 +439,132 @@
             box-shadow: 0 0 16px var(--accent-glow);
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .clapper-top, .clap-flash, .panel, .clapper-col, .content-col, .card { animation: none !important; transition: none !important; }
-        }
-
-        /* ---------- Responsive (Mobil Uyumluluk) ---------- */
+        /* ---------- Responsive ---------- */
         @media (max-width: 1024px) {
             .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-            body.docked .content-col { flex: 1 1 600px; }
         }
 
         @media (max-width: 900px) {
-            .app-shell { flex-direction: column; justify-content: center; padding: 120px 6vw 60px; gap: 30px; }
-            body.docked .app-shell { justify-content: flex-start; padding-top: 60px; }
-            body.docked .clapper-col { transform: scale(0.8); margin-left: 0; margin-right: 0; margin-bottom: -30px; }
-            .content-col { max-width: 100%; }
-            body.docked .content-col { max-width: 100%; flex-basis: auto; }
+            .container { padding: 0 20px; }
+            .about { padding: 110px 0 60px; }
         }
 
         @media (max-width: 768px) {
-            .lang-toggle { top: 16px; right: 16px; padding: 8px 13px; font-size: 0.72rem; }
-            .portfolio-grid { grid-template-columns: 1fr; }
-            h2 { font-size: 1.8rem; }
+            h2 { margin-bottom: 3rem; }
+
+            .about-inner { grid-template-columns: 3px 1fr; gap: 24px; }
+            .about p { font-size: 1.1rem; }
+
+            .portfolio-grid { grid-template-columns: 1fr; gap: 22px; }
+
+            .hero-buttons { flex-direction: column; width: 100%; gap: 14px; }
+            .btn { width: 100%; max-width: 320px; text-align: center; }
+
+            .lang-toggle {
+                top: 16px;
+                right: 16px;
+                padding: 8px 13px;
+                font-size: 0.72rem;
+            }
+
+            footer { padding: 70px 0 32px; }
         }
 
         @media (max-width: 480px) {
-            .clap-row { font-size: 1.5rem; padding: 20px 16px 20px; }
-            .clap-row.clap-title { font-size: 1.8rem; padding: 24px 16px; }
-            .clapper { width: 100%; max-width: 92vw; }
-            body.docked .clapper-col { transform: scale(0.7); }
+            .container { padding: 0 18px; }
+            .hero-section { padding: 80px 0; }
+            .about, .portfolio { padding-left: 0; padding-right: 0; }
+            .portfolio-credits { padding: 22px 20px; }
+            .social-icons a { width: 44px; height: 44px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-photo"></div>
-    <div class="bg-overlay"></div>
-    <div class="clap-flash" id="clapFlash"></div>
-
     <!-- Dil Değiştirme Butonu -->
     <button id="lang-toggle" class="lang-toggle" aria-label="Switch language">EN</button>
 
-    <main class="app-shell" id="appShell">
-
-        <!-- Klaket / Navigasyon -->
-        <div class="clapper-col">
-            <div class="clapper" id="clapper">
-                <div class="clapper-top" id="clapperTop">
-                    <div class="clapper-hinge"></div>
-                </div>
-                <div class="clapper-body">
-                    <div class="clapper-jaw"></div>
-                    
-                    <!-- Başlık (Ana Sayfaya Dönüş) -->
-                    <div class="clap-row clap-title" id="homeBtn">
-                        <span>BAYRAM BUĞRA ŞEN</span>
-                    </div>
-
-                    <!-- Portfolyo (Tekli Üst Sıra) -->
-                    <div class="clap-row clap-nav" data-target="portfolio">
-                        <span class="clap-text" data-tr="PORTFOLYO" data-en="PORTFOLIO">PORTFOLYO</span>
-                    </div>
-
-                    <!-- Menü Izgarası (Hakkımda & İletişim Alt Sırada) -->
-                    <div class="clap-nav-grid">
-                        <div class="clap-row clap-nav" data-target="hakkimda">
-                            <span class="clap-text" data-tr="HAKKIMDA" data-en="ABOUT">HAKKIMDA</span>
-                        </div>
-                        
-                        <div class="clap-row clap-nav" data-target="iletisim">
-                            <span class="clap-text" data-tr="İLETİŞİM" data-en="CONTACT">İLETİŞİM</span>
-                        </div>
-                    </div>
+    <main>
+        <!-- Hero (Karşılama) Alanı -->
+        <section class="hero-section">
+            <div class="hero-photo"></div>
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1>BAYRAM BUĞRA ŞEN</h1>
+                <div class="hero-buttons">
+                    <a href="#hakkimda" class="btn btn-outline" data-tr="HAKKIMDA" data-en="ABOUT">HAKKIMDA</a>
+                    <a href="#portfolio" class="btn btn-primary" data-tr="PORTFOLYO" data-en="PORTFOLIO">PORTFOLYO</a>
+                    <a href="#iletisim" class="btn btn-secondary" data-tr="İLETİŞİM" data-en="CONTACT">İLETİŞİM</a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- İçerik Paneli -->
-        <div class="content-col" id="contentCol">
-
-            <!-- Hakkımda -->
-            <section class="panel" id="panel-hakkimda">
+        <!-- Hakkımda Alanı -->
+        <section class="about" id="hakkimda">
+            <div class="container">
                 <h2 data-tr="HAKKIMDA" data-en="ABOUT">HAKKIMDA</h2>
                 <div class="about-inner">
                     <div class="about-rule"></div>
-                    <p data-tr="Merhaba, ben Buğra. İstanbul merkezli bir sinema öğrencisiyim. Aktif olarak kamera asistanlığı yapıyorum. Bir yandan&nbsp;da işin kreatif tarafında ilerliyor, kendi filmlerim üzerinde çalışıyorum." data-en="Hi, I'm Buğra. I'm an Istanbul-based film student. I actively work as a camera assistant. Alongside this, I am advancing on the creative side and working on my own films.">Merhaba, ben Buğra. İstanbul merkezli bir sinema öğrencisiyim. Aktif olarak kamera asistanlığı yapıyorum. Bir yandan&nbsp;da işin kreatif tarafında ilerliyor, kendi filmlerim üzerinde çalışıyorum.</p>
+                    <p data-tr="Merhaba, ben Buğra. İstanbul merkezli bir sinema öğrencisiyim. Aktif olarak kamera asistanlığı yapıyorum. Bir yandan da işin kreatif tarafında ilerliyor, kendi filmlerim üzerinde çalışıyorum." data-en="Hi, I'm Buğra. I'm an Istanbul-based film student. I actively work as a camera assistant. Alongside this, I am advancing on the creative side and working on my own films.">Merhaba, ben Buğra. İstanbul merkezli bir sinema öğrencisiyim. Aktif olarak kamera asistanlığı yapıyorum. Bir yandan da işin kreatif tarafında ilerliyor, kendi filmlerim üzerinde çalışıyorum.</p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Portfolyo -->
-            <section class="panel" id="panel-portfolio">
+        <!-- Portfolyo Alanı -->
+        <section id="portfolio" class="portfolio">
+            <div class="container">
                 <h2 data-tr="PORTFOLYO" data-en="PORTFOLIO">PORTFOLYO</h2>
 
                 <div class="portfolio-grid">
-                    <!-- 1. Video Kartı -->
+
+                    <!-- 1. Video Kartı (Brisa Kadın Yelken Takımı) -->
                     <div class="card">
                         <div class="video-container">
                             <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/6Soki72Sd4s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-                        </div>
                         <div class="card-content">
-                            <h3 data-tr="BRISA KADIN YELKEN TAKIMI TANITIM FİLMİ 2024" data-en="BRISA WOMEN'S SAILING TEAM PROMOTIONAL FILM 2024">BRISA KADIN YELKEN TAKIMI TANITIM FİLMİ 2024</h3>
+                            <h3 data-tr="BRISA KADIN YELKEN TAKIMI TANITIM FİLMİ (2024)" data-en="BRISA WOMEN'S SAILING TEAM FILM (2024)">BRISA KADIN YELKEN TAKIMI TANITIM FİLMİ (2024)</h3>
                         </div>
                     </div>
 
-                    <!-- 2. Video Kartı -->
+                    <!-- 2. Video Kartı (Porsche Taycan) -->
                     <div class="card">
                         <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1014412963?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Porsche Taycan 2024"></iframe></div>
                         <div class="card-content">
-                            <h3 data-tr="PORSCHE TAYCAN LANSMAN FİLMİ 2024" data-en="PORSCHE TAYCAN LAUNCH FILM 2024">PORSCHE TAYCAN LANSMAN FİLMİ 2024</h3>
+                            <h3 data-tr="PORSCHE TAYCAN LANSMAN FİLMİ (2024)" data-en="PORSCHE TAYCAN LAUNCH FILM (2024)">PORSCHE TAYCAN LANSMAN FİLMİ (2024)</h3>
                         </div>
                     </div>
 
-                    <!-- 3. Video Kartı -->
+                    <!-- 3. Video Kartı (Babür) -->
                     <div class="card">
                         <div class="video-container">
-                            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/JaVCoR2_fBg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/JaVCoR2_fBg?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                         </div>
                         <div class="card-content">
-                            <h3>BABÜR - YERİ YURDUNU BİL</h3>
+                            <h3>BABÜR - YERİ YURDUNU BİL (2025)</h3>
                         </div>
                     </div>
+
                 </div>
 
-                <!-- Dahası -->
+                <!-- Dahası / Other&more -->
                 <div class="portfolio-credits">
                     <span class="credits-label" data-tr="DAHASI" data-en="OTHER & MORE">DAHASI</span>
                     <ul>
-                        <li data-tr="UNITED4 ARCADE REELS | KAMERA ASİSTANI" data-en="UNITED4 ARCADE REELS | CAMERA ASSISTANT">UNITED4 ARCADE REELS | KAMERA ASİSTANI</li>
+                        <li data-tr="UNITED4 ARCADE REELS | KAMERA ASİSTANI (2025)" data-en="UNITED4 ARCADE REELS | CAMERA ASSISTANT (2025)">UNITED4 ARCADE REELS | KAMERA ASİSTANI (2025)</li>
                         <li data-tr="ARTSY | CNBC-E | KAMERA ASİSTANI (2026)" data-en="ARTSY | CNBC-E | CAMERA ASSISTANT (2026)">ARTSY | CNBC-E | KAMERA ASİSTANI (2026)</li>
                         <li data-tr="IKEA X TBWA X SUPER 8 REKLAM FİLMİ | KAMERA ASİSTANI (2026)" data-en="IKEA X TBWA X SUPER 8 COMMERCIAL FILM | CAMERA ASSISTANT (2026)">IKEA X TBWA X SUPER 8 REKLAM FİLMİ | KAMERA ASİSTANI (2026)</li>
                         <li data-tr="AVVA X MUG | MURAT BOZ KIŞ KOLEKSİYONU TANITIM FİLMİ | KAMERA ASİSTANI (2026)" data-en="AVVA X MUG | MURAT BOZ WINTER COLLECTION PROMOTIONAL FILM | CAMERA ASSISTANT (2026)">AVVA X MUG | MURAT BOZ KIŞ KOLEKSİYONU TANITIM FİLMİ | KAMERA ASİSTANI (2026)</li>
-                        <li data-tr="BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI" data-en="BHS 4 EVENT FILM | ALPER BİÇEN | Camera Assistant">BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI</li>
+                        <li data-tr="BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI (2026)" data-en="BHS 4 EVENT FILM | ALPER BİÇEN | CAMERA ASSISTANT (2026)">BHS 4 ETKİNLİK FİLMİ | ALPER BİÇEN | KAMERA ASİSTANI (2026)</li>
                     </ul>
                 </div>
-            </section>
+            </div>
+        </section>
+    </main>
 
-            <!-- İletişim -->
-            <section class="panel" id="panel-iletisim">
+    <!-- Footer / İletişim Alanı -->
+    <footer id="iletisim">
+        <div class="container">
+            <div class="footer-content">
                 <h2 data-tr="İLETİŞİM" data-en="CONTACT">İLETİŞİM</h2>
 
                 <div class="contact-links">
@@ -598,65 +575,14 @@
                 <div class="social-icons">
                     <a href="https://www.instagram.com/bayrambugrasen/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
+            </div>
 
-                <p class="copyright" data-tr="© 2024 BAYRAM BUĞRA ŞEN. TÜM HAKLARI SAKLIDIR." data-en="© 2024 BAYRAM BUĞRA ŞEN. ALL RIGHTS RESERVED.">© 2024 BAYRAM BUĞRA ŞEN. TÜM HAKLARI SAKLIDIR.</p>
-            </section>
-
+            <p class="copyright" data-tr="© 2024 BAYRAM BUĞRA ŞEN. TÜM HAKLARI SAKLIDIR." data-en="© 2024 BAYRAM BUĞRA ŞEN. ALL RIGHTS RESERVED.">© 2024 BAYRAM BUĞRA ŞEN. TÜM HAKLARI SAKLIDIR.</p>
         </div>
-    </main>
+    </footer>
 
     <!-- Vimeo API Script -->
     <script src="https://player.vimeo.com/api/player.js"></script>
-
-    <!-- Klaket & Panel Script -->
-    <script>
-        (function () {
-            var clapper = document.getElementById('clapper');
-            var flash = document.getElementById('clapFlash');
-            var rows = document.querySelectorAll('.clap-row[data-target]');
-            var panels = document.querySelectorAll('.panel');
-            var homeBtn = document.getElementById('homeBtn');
-
-            function showPanel(target) {
-                panels.forEach(function (p) { p.classList.toggle('active', p.id === 'panel-' + target); });
-                rows.forEach(function (r) { r.classList.toggle('active', r.dataset.target === target); });
-            }
-
-            function playClap(callback) {
-                clapper.classList.remove('is-clapping');
-                flash.classList.remove('is-active');
-                void clapper.offsetWidth; // reflow animasyonu sıfırlar
-                clapper.classList.add('is-clapping');
-                flash.classList.add('is-active');
-                
-                setTimeout(function() {
-                    clapper.classList.remove('is-clapping');
-                }, 450);
-
-                if(callback) setTimeout(callback, 220);
-            }
-
-            rows.forEach(function (row) {
-                row.addEventListener('click', function () {
-                    var target = row.dataset.target;
-                    playClap(function() {
-                        document.body.classList.add('docked');
-                        showPanel(target);
-                    });
-                });
-            });
-
-            homeBtn.addEventListener('click', function() {
-                if(document.body.classList.contains('docked')) {
-                    playClap(function() {
-                        document.body.classList.remove('docked');
-                        panels.forEach(function(p) { p.classList.remove('active'); });
-                        rows.forEach(function(r) { r.classList.remove('active'); });
-                    });
-                }
-            });
-        })();
-    </script>
 
     <!-- Dil Değiştirme Script -->
     <script>
